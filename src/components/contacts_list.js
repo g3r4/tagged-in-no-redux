@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import ReactPaginate from 'react-paginate';
-import {Pager, Nav} from 'react-bootstrap'
 
 import ContactCard from './contact_card';
+
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem, FormGroup, Input } from 'reactstrap';
 
   export default class ContactsList extends Component{
 
@@ -54,8 +66,10 @@ import ContactCard from './contact_card';
     }
 
     render(){
-        const paginator = <nav className="pagination-nav">
-                            <ReactPaginate 
+        const paginator =         <Navbar color="dark" className="navbar-dark" fixed="bottom" expand="md">
+
+        <Nav className="mx-auto" navbar>
+        <ReactPaginate 
                             previousLabel={"<"}
                             previousClassName={"page-item"}
                             previousLinkClassName={"page-link"}
@@ -72,8 +86,11 @@ import ContactCard from './contact_card';
                             subContainerClassName={"pages pagination"}
                             activeClassName={"active"} 
                             pageClassName={"page-item"}
-                            pageLinkClassName={"page-link"}/>        
-                        </nav>
+                            pageLinkClassName={"page-link"}/> 
+
+        </Nav>
+    </Navbar>
+                                   
             return(
                 <div className="contact-list">
                     <ul>
