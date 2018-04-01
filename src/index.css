@@ -10,7 +10,8 @@ body {
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
-  padding-bottom: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .contact-list {
@@ -24,4 +25,25 @@ body {
 
 .pagination-nav{
   display: inline-block;
+}
+
+.contact-list{
+  display: inline-block;
+}
+
+.card-header{
+  text-align: left;
+}
+
+.card{
+  text-align: left;
+  width: 40rem;
+}
+
+.card-img{
+  object-fit: cover;
+  width: 50px !important;
+  height: 50px;
+  border-radius: 50px !important;
+  margin-right: 25px;
 }

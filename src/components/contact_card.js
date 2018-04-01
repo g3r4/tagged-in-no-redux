@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import NoteForm from './add_note_form';
+import md5 from 'md5';
 
-import { Card, CardText, CardBody,
+import { Card, CardText, CardBody, CardImg, CardSubtitle,
     CardTitle, Button, CardHeader } from 'reactstrap';
     
 
@@ -25,15 +26,18 @@ import { Card, CardText, CardBody,
 
     render(){
         let addNoteTextField = <NoteForm />
+        const gravatarImageURL = `http://www.gravatar.com/avatar/${md5(this.props.contact["Email Address"])}?s=100`
         return(
             <div>
                 <Card>
-                    <CardHeader tag="h3">{this.props.contact["First Name"]} {this.props.contact["Last Name"]}</CardHeader>
+                    <CardHeader tag="h3">
+                        <CardImg  src={gravatarImageURL} alt="Card image cap" />
+                        {this.props.contact["First Name"]} {this.props.contact["Last Name"]}
+                    </CardHeader>
                     <CardBody>
-                    <CardTitle>{this.props.contact["Position"]}</CardTitle>
+                    <CardTitle>{this.props.contact["Company"]}</CardTitle>
+                    <CardSubtitle>{this.props.contact["Position"]}</CardSubtitle>
                     <CardText>{this.props.contact["Email Address"]}</CardText>
-                        <Button onClick={this.addNote}>Add Note </Button>
-                        {this.state.addnote ? addNoteTextField : <div />}
                     </CardBody>
                 </Card>
             </div>

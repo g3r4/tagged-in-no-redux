@@ -54,31 +54,32 @@ import ContactCard from './contact_card';
     }
 
     render(){
+        const paginator = <nav className="pagination-nav">
+                            <ReactPaginate 
+                            previousLabel={"<"}
+                            previousClassName={"page-item"}
+                            previousLinkClassName={"page-link"}
+                            nextLabel={">"}
+                            nextClassName={"page-item"}
+                            nextLinkClassName={"page-link"}
+                            breakLabel={<a href="">...</a>}
+                            breakClassName={"break-me"}
+                            pageCount={this.state.pageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={this.handlePageClick}
+                            containerClassName={"pagination"}
+                            subContainerClassName={"pages pagination"}
+                            activeClassName={"active"} 
+                            pageClassName={"page-item"}
+                            pageLinkClassName={"page-link"}/>        
+                        </nav>
             return(
                 <div className="contact-list">
                     <ul>
                         {this.renderCards()}
                     </ul>
-                    <nav className="pagination-nav">
-                        <ReactPaginate 
-                        previousLabel={"<"}
-                        previousClassName={"page-item"}
-                        previousLinkClassName={"page-link"}
-                        nextLabel={">"}
-                        nextClassName={"page-item"}
-                        nextLinkClassName={"page-link"}
-                        breakLabel={<a href="">...</a>}
-                        breakClassName={"break-me"}
-                        pageCount={this.state.pageCount}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={this.handlePageClick}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"active"} 
-                        pageClassName={"page-item"}
-                        pageLinkClassName={"page-link"}/>        
-                    </nav>
+                    {_.isEmpty(this.state.data)? <div /> : paginator}
                 </div>
             );
     }

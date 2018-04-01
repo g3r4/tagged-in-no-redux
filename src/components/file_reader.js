@@ -30,9 +30,6 @@ export default class UploadFile extends Component{
     }
         
     render(){ 
-        if (this.props.isLoading) {
-            return <p>Loading ...</p>;
-        }
         return(
             <div>
                 <ReactFileReader fileTypes={[".csv"]} multipleFiles={false} base64={false} handleFiles={this.handleFiles}>

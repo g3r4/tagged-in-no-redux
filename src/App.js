@@ -35,7 +35,7 @@ class App extends Component {
 
   render() {
     const contactsList = this.state.loading ? <p> Loading contacts... </p>
-    : <ContactsList  contacts={this.state.contacts} loading={this.state.loading} perPage={10}/>
+    : <ContactsList  contacts={this.state.contacts} loading={this.state.loading} perPage={5}/>
 
     
     const uploadFile = _.isEmpty(this.state.contacts) ? <UploadFile addContacts={this.addContacts} startLoading={this.startLoading} stopLoading={this.stopLoading} />
@@ -44,16 +44,12 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <div className="logo-title">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1>Tagged-in React</h1>
+          </div>
         </header>
-        <div >
-          <Jumbotron>
-            <h1>Welcome to tagged in!</h1>
-            <p>
-              This application lets you upload a file with your contacts exported
-              from a linked-in csv file so you can tag and organize them however you want!.
-            </p>
-          </Jumbotron>
+        <div className="centered">
           {uploadFile}
         </div>
         {contactsList}
