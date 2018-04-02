@@ -25,12 +25,21 @@ import {
         this.state = {
             data: {},
             offset: 0,
-            pageCount: 0
+            pageCount: 0,
+            contacts: {}
         }
     }
 
     componentDidMount() {
         this.loadProfilesFromState();
+    }
+
+    componentDidUpdate(){
+            if (this.state.contacts !== this.props.contacts){
+                this.setState({
+                    contacts: this.props.contacts
+                }, this.loadProfilesFromState())    
+            }
     }
 
     firstN = (obj, n) => {
@@ -65,6 +74,9 @@ import {
     }
 
     render(){
+        console.log(this.props.contacts)
+        console.log(this.state.data)
+
         const paginator =         <Navbar color="dark" className="navbar-dark" fixed="bottom" expand="md">
 
         <Nav className="mx-auto" navbar>

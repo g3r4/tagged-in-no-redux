@@ -21,9 +21,29 @@ class App extends Component {
   }
 
   setSearchTerm = (term) => {
+
+    console.log(this.state.term)
+
+    let filteredContacts = []
+
+    if (term !== ""){
+      filteredContacts = _.filter(this.state.contacts, (contact) => {
+           if (_.includes(contact, term) ) return contact;
+      })
+    }
+
+    const obj = filteredContacts.reduce(function(result, item, index, array) {
+      result[index] = item; //a, b, c
+      return result;
+    }, {}) //watch out the empty {}, which is passed as "result"
+
+
     this.setState({
-      searchterm: term
+      searchterm: term,
+      filteredContactsObj: obj
     })
+
+    //console.log(obj);
   }
 
   startLoading = () => {
@@ -43,27 +63,6 @@ class App extends Component {
   }
 
   render() {
-
-    let filteredContacts = []
-
-    if (this.state.searchterm !== ""){
-      filteredContacts = _.filter(this.state.contacts, (contact) => {
-           if (_.includes(contact, this.state.searchterm) ) return contact;
-      })
-    }
-
-    const obj = filteredContacts.reduce(function(result, item, index, array) {
-      result[index] = item; //a, b, c
-      return result;
-      debugger
-    }, {}) //watch out the empty {}, which is passed as "result"
-
-    console.log(obj);
-
-
-    const contactsList = this.state.loading ? <p> Loading contacts... </p>
-    : <ContactsList  contacts={this.state.contacts} loading={this.state.loading} perPage={24}/>
-
     
     const uploadFile = _.isEmpty(this.state.contacts) ? <UploadFile addContacts={this.addContacts} startLoading={this.startLoading} stopLoading={this.stopLoading} />
     : <div />
@@ -76,7 +75,7 @@ class App extends Component {
         <div className="centered">
           {uploadFile}
         </div>
-        {contactsList}
+          <ContactsList  contacts={this.state.searchterm === "" ? this.state.contacts : this.state.filteredContactsObj} loading={this.state.loading} perPage={24}/>
       </div>
     );
   }
