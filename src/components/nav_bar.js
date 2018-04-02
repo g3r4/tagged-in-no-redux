@@ -26,13 +26,19 @@ export default class Example extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
+
+  handleSearchBarChange = (event) => {
+      console.log(event.target.value)
+      this.props.setSearchTerm(event.target.value)
+  }
+
   render() {
     return (
       <div>
         <Navbar color="dark" className="navbar-dark" fixed="top" expand="md">
             <NavbarBrand href="/">Tagged-in</NavbarBrand>
             <FormGroup>
-                <Input type="search" name="search" id="exampleSearch" placeholder="Search contacts" />
+                <Input type="search" name="search" id="exampleSearch" placeholder="Search contacts" onChange={this.handleSearchBarChange}/>
             </FormGroup>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>

@@ -59,7 +59,6 @@ import {
       };
 
     renderCards = () => {
-        console.log(this.state.data)
         return _.map(this.state.data, (contact) => {
             return (<ContactCard key={contact["Email Address"]} contact={contact}/>)
         })
@@ -76,8 +75,8 @@ import {
                             nextLabel={">"}
                             nextClassName={"page-item"}
                             nextLinkClassName={"page-link"}
-                            breakLabel={<a href="">...</a>}
-                            breakClassName={"break-me"}
+                            breakLabel={<a href="#">...</a>}
+                            breakClassName={"break-item"}
                             pageCount={this.state.pageCount}
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={5}
@@ -92,10 +91,12 @@ import {
     </Navbar>
                                    
             return(
-                <div className="contact-list">
-                    <ul>
-                        {this.renderCards()}
-                    </ul>
+                <div >
+                    <div className="container-fluid">
+                        <div className="card-deck">
+                                    {this.renderCards()}
+                        </div>
+                    </div>
                     {_.isEmpty(this.state.data)? <div /> : paginator}
                 </div>
             );

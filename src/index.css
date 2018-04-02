@@ -14,8 +14,8 @@ body {
   margin-top: 20px;
 }
 
-.contact-list {
-  padding-top: 20px;
+.container-fluid {
+  padding-bottom: 80px;
 }
 
 .loading {
@@ -37,13 +37,25 @@ body {
 
 .card{
   text-align: left;
-  width: 40rem;
+  width: 33rem;
+  margin: 1rem;
 }
 
 .card-img{
   object-fit: cover;
-  width: 50px !important;
-  height: 50px;
-  border-radius: 50px !important;
+  width: 70px !important;
+  height: 70px;
+  border-radius: 70px !important;
   margin-right: 25px;
+}
+
+.break-item > a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
 }

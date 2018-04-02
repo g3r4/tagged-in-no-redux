@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NoteForm from './add_note_form';
 import md5 from 'md5';
 
-import { Card, CardText, CardBody, CardImg, CardSubtitle,
+import { Card, CardText, CardBody, CardImg, CardSubtitle, CardFooter,
     CardTitle, Button, CardHeader } from 'reactstrap';
     
 
@@ -39,6 +39,7 @@ import { Card, CardText, CardBody, CardImg, CardSubtitle,
                     <CardSubtitle>{this.props.contact["Position"]}</CardSubtitle>
                     <CardText>{this.props.contact["Email Address"]}</CardText>
                     </CardBody>
+                    <CardFooter className="text-muted">Tags</CardFooter>
                 </Card>
             </div>
         );
