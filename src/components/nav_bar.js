@@ -1,16 +1,9 @@
 import React from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem, FormGroup, Input, Badge, Button } from 'reactstrap';
+import { Menu, Icon, Input, Badge } from 'antd';
+
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
+const Search = Input.Search;
 
 export default class TaggedInNav extends React.Component {
   constructor(props) {
@@ -27,8 +20,6 @@ export default class TaggedInNav extends React.Component {
     });
   }
 
-
-
   handleSearchBarChange = (event) => {
       console.log(event.target.value)
       this.props.setSearchTerm(event.target.value)
@@ -37,40 +28,25 @@ export default class TaggedInNav extends React.Component {
   render() {
       console.log("navbar", this.props.results)
     return (
-      <div>
-        <Navbar color="dark" className="navbar-dark" fixed="top" expand="md">
-            <NavbarBrand href="/">Tagged-in</NavbarBrand>
-            <Input className="search-input" type="search" name="search" id="exampleSearch" placeholder="Search contacts" onChange={this.handleSearchBarChange}/>
-            <div color="primary">
-                Contacts <Badge color="primary">{this.props.results}</Badge>
-            </div>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-                <NavItem>
-
-                </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Tags
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Drupal
-                  </DropdownItem>
-                  <DropdownItem>
-                    Javascript
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Government
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
+         <Menu
+            onClick={this.handleClick}
+            selectedKeys={[this.state.current]}
+            mode="horizontal"
+        >
+            <Menu.Item key="app">
+                Tagged <Icon type="linkedin" /> 
+            </Menu.Item>
+            <Menu.Item key="search">
+            <Search
+                onChange={this.handleSearchBarChange}
+                style={{ width: 200 }}
+                /> 
+            </Menu.Item>
+            <Menu.Item key="search">
+                <Icon type="user" />            
+                <Badge count={this.props.results} showZero overflowCount={9999} style={{ backgroundColor: '#1890ff' }}/>
+            </Menu.Item>
+      </Menu>
     );
   }
 }
