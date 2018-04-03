@@ -18,7 +18,8 @@ export default class Example extends React.Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      volume: 0
     };
   }
   toggle() {
@@ -26,6 +27,8 @@ export default class Example extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
+
+
 
   handleSearchBarChange = (event) => {
       console.log(event.target.value)
@@ -40,6 +43,7 @@ export default class Example extends React.Component {
             <FormGroup>
                 <Input type="search" name="search" id="exampleSearch" placeholder="Search contacts" onChange={this.handleSearchBarChange}/>
             </FormGroup>
+            
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

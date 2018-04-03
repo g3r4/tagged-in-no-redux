@@ -59,3 +59,12 @@ body {
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
+
+.rangeslider{
+  width: 200px;
+  margin-left: 20px;
+}
+
+.rangeslider__fill{
+  background-color: #007aff !important;
+}

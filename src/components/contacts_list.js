@@ -17,6 +17,9 @@ import {
     DropdownMenu,
     DropdownItem, FormGroup, Input } from 'reactstrap';
 
+    import Slider from 'react-rangeslider'
+
+
   export default class ContactsList extends Component{
 
     constructor(props){
@@ -26,7 +29,8 @@ import {
             data: {},
             offset: 0,
             pageCount: 0,
-            contacts: {}
+            contacts: {},
+            contactsPerPage: 0
         }
     }
 
@@ -37,7 +41,8 @@ import {
     componentDidUpdate(){
             if (this.state.contacts !== this.props.contacts){
                 this.setState({
-                    contacts: this.props.contacts
+                    contacts: this.props.contacts,
+                    offset: 0
                 }, this.loadProfilesFromState())    
             }
     }
@@ -73,34 +78,51 @@ import {
         })
     }
 
+    handleSliderChange = (value) => {
+        this.setState({
+            contactsPerPage: value
+        }, this.props.setPerPage(value))
+        this.loadProfilesFromState()
+      }
+
     render(){
-        console.log(this.props.contacts)
-        console.log(this.state.data)
 
-        const paginator =         <Navbar color="dark" className="navbar-dark" fixed="bottom" expand="md">
+        let { contactsPerPage } = this.state
 
-        <Nav className="mx-auto" navbar>
-        <ReactPaginate 
-                            previousLabel={"<"}
-                            previousClassName={"page-item"}
-                            previousLinkClassName={"page-link"}
-                            nextLabel={">"}
-                            nextClassName={"page-item"}
-                            nextLinkClassName={"page-link"}
-                            breakLabel={<a href="#">...</a>}
-                            breakClassName={"break-item"}
-                            pageCount={this.state.pageCount}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            onPageChange={this.handlePageClick}
-                            containerClassName={"pagination"}
-                            subContainerClassName={"pages pagination"}
-                            activeClassName={"active"} 
-                            pageClassName={"page-item"}
-                            pageLinkClassName={"page-link"}/> 
+        const paginator = 
+        <Navbar color="dark" className="navbar-dark" fixed="bottom" expand="md">
 
-        </Nav>
-    </Navbar>
+            <Nav className="mx-auto" navbar>
+                <ReactPaginate 
+                    previousLabel={"<"}
+                    previousClassName={"page-item"}
+                    previousLinkClassName={"page-link"}
+                    nextLabel={">"}
+                    nextClassName={"page-item"}
+                    nextLinkClassName={"page-link"}
+                    breakLabel={<a href="#">...</a>}
+                    breakClassName={"break-item"}
+                    pageCount={this.state.pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={this.handlePageClick}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"pages pagination"}
+                    activeClassName={"active"} 
+                    pageClassName={"page-item"}
+                    pageLinkClassName={"page-link"}
+                /> 
+
+                <Slider
+                    value={this.state.contactsPerPage}
+                    min={6}
+                    max={48}
+                    step={6}
+                    onChange={this.handleSliderChange}
+                />
+
+            </Nav>
+        </Navbar>
                                    
             return(
                 <div >

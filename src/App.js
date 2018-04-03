@@ -16,7 +16,8 @@ class App extends Component {
         contacts: {},
         loading: false,
         searchterm: "",
-        filteredContactsObj:{}
+        filteredContactsObj:{},
+        perPage: 6
     }
   }
 
@@ -62,6 +63,10 @@ class App extends Component {
     this.setState({ contacts })
   }
 
+  setPerPage = (sliderValue) => {
+    this.setState({ perPage : sliderValue})
+  }
+
   render() {
     
     const uploadFile = _.isEmpty(this.state.contacts) ? <UploadFile addContacts={this.addContacts} startLoading={this.startLoading} stopLoading={this.stopLoading} />
@@ -75,7 +80,7 @@ class App extends Component {
         <div className="centered">
           {uploadFile}
         </div>
-          <ContactsList  contacts={this.state.searchterm === "" ? this.state.contacts : this.state.filteredContactsObj} loading={this.state.loading} perPage={24}/>
+          <ContactsList  contacts={this.state.searchterm === "" ? this.state.contacts : this.state.filteredContactsObj} loading={this.state.loading} setPerPage={this.setPerPage} perPage={this.state.perPage}/>
       </div>
     );
   }
