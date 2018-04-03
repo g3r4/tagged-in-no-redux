@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import ReactFileReader from 'react-file-reader';
-
-import {
-    Button
-  } from 'react-bootstrap';
 
 import converter from 'csvtojson';
 
+import { Upload, Icon, message } from 'antd';
+const Dragger = Upload.Dragger;
+
 export default class UploadFile extends Component{
 
+
     handleFiles = files => {
+        console.log(files)
         const contacts = {};
 
-        const file = files[0];
+        const file = files["file"];
         const reader = new FileReader();
         reader.onload = (event) => {
             this.props.startLoading();
@@ -26,15 +26,28 @@ export default class UploadFile extends Component{
                 })
         };
 
-        reader.readAsText(file);
+        reader.readAsText(file.originFileObj);
     }
         
     render(){ 
+
+        const props = {
+            name: 'file',
+            multiple: false,
+            accept: '.csv',
+          };
+
         return(
             <div>
-                <ReactFileReader fileTypes={[".csv"]} multipleFiles={false} base64={false} handleFiles={this.handleFiles}>
-                    <Button bsStyle="primary" bsSize="large">Upload CSV file</Button>
-                </ReactFileReader>
+
+                <Dragger {...props} onChange={ (info, fileList, status) => {this.handleFiles(info, status)} }>
+                    <p className="ant-upload-drag-icon">
+                    <Icon type="inbox" />
+                    </p>
+                    <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                    <p className="ant-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files</p>
+                </Dragger>
+
             </div>
         );
     }

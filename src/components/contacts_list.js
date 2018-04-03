@@ -15,7 +15,7 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem, FormGroup, Input } from 'reactstrap';
+    DropdownItem, FormGroup, Input, Badge } from 'reactstrap';
 
     import Slider from 'react-rangeslider'
 
@@ -92,7 +92,7 @@ import {
         const paginator = 
         <Navbar color="dark" className="navbar-dark" fixed="bottom" expand="md">
 
-            <Nav className="mx-auto" navbar>
+            <Nav className="ml-auto" navbar>
                 <ReactPaginate 
                     previousLabel={"<"}
                     previousClassName={"page-item"}
@@ -112,7 +112,9 @@ import {
                     pageClassName={"page-item"}
                     pageLinkClassName={"page-link"}
                 /> 
+            </Nav>
 
+            <Nav className="ml-auto" navbar>
                 <Slider
                     value={this.state.contactsPerPage}
                     min={6}
@@ -120,8 +122,12 @@ import {
                     step={6}
                     onChange={this.handleSliderChange}
                 />
-
+                
+                <div className="my-auto">
+                    <Badge color="primary">{this.state.contactsPerPage}</Badge>
+                </div>
             </Nav>
+            
         </Navbar>
                                    
             return(

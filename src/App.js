@@ -7,6 +7,10 @@ import ContactsList from './components/contacts_list';
 import _ from 'lodash';
 import TaggedInNav from './components/nav_bar';
 
+import { Upload, Icon, message } from 'antd';
+const Dragger = Upload.Dragger;
+
+
 
 class App extends Component {
   constructor(props){
@@ -75,7 +79,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <TaggedInNav setSearchTerm={this.setSearchTerm}/>
+          <TaggedInNav setSearchTerm={this.setSearchTerm} 
+                       results={this.state.searchterm === "" ? 
+                       Object.keys(this.state.contacts).length : Object.keys(this.state.filteredContactsObj).length}/>
         </header>
         <div className="centered">
           {uploadFile}

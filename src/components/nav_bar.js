@@ -10,16 +10,15 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem, FormGroup, Input } from 'reactstrap';
+  DropdownItem, FormGroup, Input, Badge, Button } from 'reactstrap';
 
-export default class Example extends React.Component {
+export default class TaggedInNav extends React.Component {
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      volume: 0
     };
   }
   toggle() {
@@ -36,14 +35,15 @@ export default class Example extends React.Component {
   }
 
   render() {
+      console.log("navbar", this.props.results)
     return (
       <div>
         <Navbar color="dark" className="navbar-dark" fixed="top" expand="md">
             <NavbarBrand href="/">Tagged-in</NavbarBrand>
-            <FormGroup>
-                <Input type="search" name="search" id="exampleSearch" placeholder="Search contacts" onChange={this.handleSearchBarChange}/>
-            </FormGroup>
-            
+            <Input className="search-input" type="search" name="search" id="exampleSearch" placeholder="Search contacts" onChange={this.handleSearchBarChange}/>
+            <div color="primary">
+                Contacts <Badge color="primary">{this.props.results}</Badge>
+            </div>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

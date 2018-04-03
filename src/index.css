@@ -63,8 +63,14 @@ body {
 .rangeslider{
   width: 200px;
   margin-left: 20px;
+  margin-right: 20px;
 }
 
 .rangeslider__fill{
   background-color: #007aff !important;
+}
+
+.search-input{
+  width: 10% !important;
+  margin-right: 20px;
 }
