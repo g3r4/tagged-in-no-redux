@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import NoteForm from './add_note_form';
 import md5 from 'md5';
 
-import { Card, CardText, CardBody, CardImg, CardSubtitle, CardFooter,
-    CardTitle, Button, CardHeader } from 'reactstrap';
+import { Card, Icon, Avatar } from 'antd';
+import { height } from 'window-size';
+const { Meta } = Card;
     
 
   export default class ContactCard extends Component{
@@ -25,23 +25,32 @@ import { Card, CardText, CardBody, CardImg, CardSubtitle, CardFooter,
     }
 
     render(){
-        let addNoteTextField = <NoteForm />
-        const gravatarImageURL = `http://www.gravatar.com/avatar/${md5(this.props.contact["Email Address"])}?s=100`
+        const cardDescription = <div>
+                                    <div style={{ fontWeight: 700, marginBottom: 10 }}>
+                                        {this.props.contact["Company"]}
+                                    </div>
+                                    <div style={{ marginBottom: 10 }}>
+                                        {this.props.contact["Position"]}
+                                    </div>
+                                    <div style={{ fontStyle: "italic" }}>
+                                        {this.props.contact["Email Address"]}
+                                    </div>
+                                </div>
+
+        const gravatarImageURL = `http://www.gravatar.com/avatar/${md5(this.props.contact["Email Address"])}?s=100&d=identicon`
         return(
-            <div>
-                <Card>
-                    <CardHeader tag="h3">
-                        <CardImg  src={gravatarImageURL} alt="Card image cap" />
-                        {this.props.contact["First Name"]} {this.props.contact["Last Name"]}
-                    </CardHeader>
-                    <CardBody>
-                    <CardTitle>{this.props.contact["Company"]}</CardTitle>
-                    <CardSubtitle>{this.props.contact["Position"]}</CardSubtitle>
-                    <CardText>{this.props.contact["Email Address"]}</CardText>
-                    </CardBody>
-                    <CardFooter className="text-muted">Tags</CardFooter>
-                </Card>
-            </div>
+                <Card
+                    hoverable
+                    style={{ width: 300, margin: 20, height: "min-content" }}
+                    //cover={<img alt="example" src={"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"} />}
+                    actions={[<Icon type="edit" />, <Icon type="ellipsis" />]}
+                >
+                    <Meta
+                    avatar={<Avatar src={gravatarImageURL} />}
+                    title={this.props.contact["First Name"] + " " + this.props.contact["Last Name"]}
+                    description={cardDescription}
+                    />
+                </Card>            
         );
     }
 }

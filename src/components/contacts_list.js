@@ -131,9 +131,9 @@ import {
         </Navbar>
                                    
             return(
-                <div >
+                <div style={{ background: '#FFF', padding: '30px' }} >
                     <div className="container-fluid">
-                        <div className="card-deck">
+                        <div className="card-decks">
                                     {this.renderCards()}
                         </div>
                     </div>
