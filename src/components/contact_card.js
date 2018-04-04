@@ -38,12 +38,15 @@ const { Meta } = Card;
                                 </div>
 
         const gravatarImageURL = `http://www.gravatar.com/avatar/${md5(this.props.contact["Email Address"])}?s=100&d=identicon`
+        const mailto = `mailto:${this.props.contact["Email Address"]}`
         return(
                 <Card
                     hoverable
-                    style={{ width: 300, margin: 20, height: "min-content" }}
-                    //cover={<img alt="example" src={"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"} />}
-                    actions={[<Icon type="edit" />, <Icon type="ellipsis" />]}
+                    style={{ width: 350, margin: 15, height: "min-content" }}
+                    actions={[
+                        <Icon type="edit" />, 
+                        <a class="mailto" href={mailto}><Icon type="mail"/> </a>, 
+                        <Icon type="ellipsis" />]}
                 >
                     <Meta
                     avatar={<Avatar src={gravatarImageURL} />}

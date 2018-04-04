@@ -7,7 +7,9 @@ import ContactsList from './components/contacts_list';
 import _ from 'lodash';
 import TaggedInNav from './components/nav_bar';
 
-import { Upload, Icon, message } from 'antd';
+import { Upload, Icon, message, Layout, Menu, Breadcrumb } from 'antd';
+
+const { Header, Content, Footer } = Layout;
 const Dragger = Upload.Dragger;
 
 
@@ -38,7 +40,7 @@ class App extends Component {
     }
 
     const obj = filteredContacts.reduce(function(result, item, index, array) {
-      result[index] = item; //a, b, c
+      result[index] = item; 
       return result;
     }, {}) //watch out the empty {}, which is passed as "result"
 
@@ -73,21 +75,29 @@ class App extends Component {
 
   render() {
     
-    const uploadFile = _.isEmpty(this.state.contacts) ? <UploadFile addContacts={this.addContacts} startLoading={this.startLoading} stopLoading={this.stopLoading} />
+    const uploadFile = _.isEmpty(this.state.contacts) ? <UploadFile  addContacts={this.addContacts} startLoading={this.startLoading} stopLoading={this.stopLoading} />
     : <div />
 
+    const contacts_list = _.isEmpty(this.state.contacts) ? null : 
+    <ContactsList  contacts={this.state.searchterm === "" ? this.state.contacts : this.state.filteredContactsObj} loading={this.state.loading} setPerPage={this.setPerPage} perPage={this.state.perPage}/>
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <TaggedInNav setSearchTerm={this.setSearchTerm} 
-                       results={this.state.searchterm === "" ? 
-                       Object.keys(this.state.contacts).length : Object.keys(this.state.filteredContactsObj).length}/>
-        </header>
-        <div className="centered">
-          {uploadFile}
-        </div>
-          <ContactsList  contacts={this.state.searchterm === "" ? this.state.contacts : this.state.filteredContactsObj} loading={this.state.loading} setPerPage={this.setPerPage} perPage={this.state.perPage}/>
+              <div className="App">
+
+      <Layout>
+              <TaggedInNav setSearchTerm={this.setSearchTerm} 
+                          results={this.state.searchterm === "" ? 
+                          Object.keys(this.state.contacts).length : Object.keys(this.state.filteredContactsObj).length}/>
+        <Content style={{ padding: '0 50px', marginTop: 112 }}>
+            {uploadFile}
+            {contacts_list}
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+        Tagged in ©2018 Created by Gerardo Maldonado for Bixal
+      </Footer>
+      </Layout>
       </div>
+
     );
   }
 }

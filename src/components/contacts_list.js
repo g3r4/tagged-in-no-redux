@@ -4,20 +4,15 @@ import ReactPaginate from 'react-paginate';
 
 import ContactCard from './contact_card';
 
-import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem, FormGroup, Input, Badge } from 'reactstrap';
+import { Menu, Icon, Input, Badge } from 'antd';
 
-    import Slider from 'react-rangeslider'
+import Slider from 'react-rangeslider'
+
+
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
+const Search = Input.Search;
+
 
 
   export default class ContactsList extends Component{
@@ -90,9 +85,12 @@ import {
         let { contactsPerPage } = this.state
 
         const paginator = 
-        <Navbar color="dark" className="navbar-dark" fixed="bottom" expand="md">
-
-            <Nav className="ml-auto" navbar>
+        <Menu
+            onClick={this.handleClick}
+            selectedKeys={[this.state.current]}
+            mode="horizontal"
+        >
+        <Menu.Item key="app">
                 <ReactPaginate 
                     previousLabel={"<"}
                     previousClassName={"page-item"}
@@ -112,9 +110,9 @@ import {
                     pageClassName={"page-item"}
                     pageLinkClassName={"page-link"}
                 /> 
-            </Nav>
+            </Menu.Item>
 
-            <Nav className="ml-auto" navbar>
+            <Menu.Item className="ml-auto" navbar>
                 <Slider
                     value={this.state.contactsPerPage}
                     min={6}
@@ -126,9 +124,9 @@ import {
                 <div className="my-auto">
                     <Badge color="primary">{this.state.contactsPerPage}</Badge>
                 </div>
-            </Nav>
+            </Menu.Item>
             
-        </Navbar>
+        </Menu>
                                    
             return(
                 <div style={{ background: '#FFF', padding: '30px' }} >

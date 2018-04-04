@@ -1,5 +1,7 @@
 import React from 'react';
-import { Menu, Icon, Input, Badge } from 'antd';
+import { Menu, Icon, Input, Badge, Layout } from 'antd';
+
+const { Header, Content, Footer } = Layout;
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -28,10 +30,14 @@ export default class TaggedInNav extends React.Component {
   render() {
       console.log("navbar", this.props.results)
     return (
+            <Header style={{ position: 'fixed', width: '100%', background:"white" , zIndex: 1000}}>
+
          <Menu
             onClick={this.handleClick}
             selectedKeys={[this.state.current]}
             mode="horizontal"
+            theme="light"
+            style={{ lineHeight: '64px' }}
         >
             <Menu.Item key="app">
                 Tagged <Icon type="linkedin" /> 
@@ -47,6 +53,8 @@ export default class TaggedInNav extends React.Component {
                 <Badge count={this.props.results} showZero overflowCount={9999} style={{ backgroundColor: '#1890ff' }}/>
             </Menu.Item>
       </Menu>
+      </Header>
+
     );
   }
 }
