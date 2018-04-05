@@ -6,13 +6,10 @@ import { Jumbotron } from 'react-bootstrap';
 import ContactsList from './components/contacts_list';
 import _ from 'lodash';
 import TaggedInNav from './components/nav_bar';
-
 import { Upload, Icon, message, Layout, Menu, Breadcrumb } from 'antd';
 
 const { Header, Content, Footer } = Layout;
 const Dragger = Upload.Dragger;
-
-
 
 class App extends Component {
   constructor(props){
@@ -23,7 +20,7 @@ class App extends Component {
         loading: false,
         searchterm: "",
         filteredContactsObj:{},
-        perPage: 6
+        perPage: 12
     }
   }
 
@@ -75,20 +72,30 @@ class App extends Component {
 
   render() {
     
-    const uploadFile = _.isEmpty(this.state.contacts) ? <UploadFile  addContacts={this.addContacts} startLoading={this.startLoading} stopLoading={this.stopLoading} />
+    const uploadFile = _.isEmpty(this.state.contacts) ? 
+      <div style={{ marginTop: 120, marginBottom: 80 }} >
+        <UploadFile addContacts={this.addContacts} startLoading={this.startLoading} stopLoading={this.stopLoading} />
+      </div>
     : <div />
 
+
+    const results = this.state.searchterm === "" ? 
+    Object.keys(this.state.contacts).length : Object.keys(this.state.filteredContactsObj).length
+    
     const contacts_list = _.isEmpty(this.state.contacts) ? null : 
-    <ContactsList  contacts={this.state.searchterm === "" ? this.state.contacts : this.state.filteredContactsObj} loading={this.state.loading} setPerPage={this.setPerPage} perPage={this.state.perPage}/>
+    <ContactsList  contacts={this.state.searchterm === "" ? this.state.contacts : this.state.filteredContactsObj} 
+                  loading={this.state.loading} 
+                  setPerPage={this.setPerPage} 
+                  perPage={this.state.perPage}
+                  results={results}/>
 
     return (
               <div className="App">
 
       <Layout>
               <TaggedInNav setSearchTerm={this.setSearchTerm} 
-                          results={this.state.searchterm === "" ? 
-                          Object.keys(this.state.contacts).length : Object.keys(this.state.filteredContactsObj).length}/>
-        <Content style={{ padding: '0 50px', marginTop: 112 }}>
+                          results={results}/>
+        <Content style={{ padding: '0 50px', marginTop: 70 }}>
             {uploadFile}
             {contacts_list}
         </Content>

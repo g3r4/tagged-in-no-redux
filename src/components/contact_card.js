@@ -42,7 +42,7 @@ const { Meta } = Card;
         return(
                 <Card
                     hoverable
-                    style={{ width: 350, margin: 15, height: "min-content" }}
+                    style={{ width: 350, margin: 10, height: "min-content" }}
                     actions={[
                         <Icon type="edit" />, 
                         <a class="mailto" href={mailto}><Icon type="mail"/> </a>, 

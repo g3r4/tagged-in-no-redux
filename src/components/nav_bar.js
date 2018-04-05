@@ -23,12 +23,10 @@ export default class TaggedInNav extends React.Component {
   }
 
   handleSearchBarChange = (event) => {
-      console.log(event.target.value)
       this.props.setSearchTerm(event.target.value)
   }
 
   render() {
-      console.log("navbar", this.props.results)
     return (
             <Header style={{ position: 'fixed', width: '100%', background:"white" , zIndex: 1000}}>
 

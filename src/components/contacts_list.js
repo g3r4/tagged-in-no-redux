@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import ReactPaginate from 'react-paginate';
-
+import { Menu, Icon, Input, Badge, Pagination } from 'antd';
 import ContactCard from './contact_card';
-
-import { Menu, Icon, Input, Badge } from 'antd';
-
-import Slider from 'react-rangeslider'
-
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 const Search = Input.Search;
 
-
-
-  export default class ContactsList extends Component{
+export default class ContactsList extends Component{
 
     constructor(props){
         super(props)
@@ -23,9 +15,9 @@ const Search = Input.Search;
         this.state = {
             data: {},
             offset: 0,
-            pageCount: 0,
             contacts: {},
-            contactsPerPage: 0
+            contactsPerPage: 0,
+            currentPage:1
         }
     }
 
@@ -34,38 +26,28 @@ const Search = Input.Search;
     }
 
     componentDidUpdate(){
-            if (this.state.contacts !== this.props.contacts){
+            if ( (this.state.contacts !== this.props.contacts) || (this.state.contactsPerPage !== this.props.perPage)){
                 this.setState({
                     contacts: this.props.contacts,
-                    offset: 0
+                    offset: 0,
+                    contactsPerPage: this.props.perPage
                 }, this.loadProfilesFromState())    
             }
     }
 
-    firstN = (obj, n) => {
+    firstN = (obj, offset) => {
         return Object.keys(obj) //get the keys out
-          .sort() //this will ensure consistent ordering of what you will get back. If you want something in non-aphabetical order, you will need to supply a custom sorting function
-          .slice(this.state.offset, this.state.offset+this.props.perPage) //get the first N
+          .sort() //this will ensure consistent ordering of what you will get back.
+          .slice(offset, offset+this.props.perPage) //get the first N to M
           .reduce(function(memo, current) { //generate a new object out of them
             memo[current] = obj[current]
             return memo;
           }, {})
       }
 
-    loadProfilesFromState = () => {
-            this.setState({data: this.firstN(this.props.contacts, this.props.perPage), 
-                       pageCount: Math.ceil(Object.keys(this.props.contacts).length / this.props.perPage) });
-      }
-
-      handlePageClick = (event) => {
-        let selected = event.selected;
-        let offset = Math.ceil(selected * this.props.perPage);
-    
-        this.setState({offset: offset}, () => {
-          this.loadProfilesFromState();
-        });
-
-      };
+    loadProfilesFromState = (offset=0, page=1) => {
+            this.setState({data: this.firstN(this.props.contacts, offset)})
+    }
 
     renderCards = () => {
         return _.map(this.state.data, (contact) => {
@@ -73,70 +55,38 @@ const Search = Input.Search;
         })
     }
 
-    handleSliderChange = (value) => {
-        this.setState({
-            contactsPerPage: value
-        }, this.props.setPerPage(value))
-        this.loadProfilesFromState()
+    onShowSizeChange =(current, pageSize) => {
+        this.setState({ currentPage: 1});
+        this.props.setPerPage(pageSize)
       }
 
+    handlePageClick = (page, pageSize) => {
+        let selected = page-1;
+        let offset = Math.ceil(selected * this.props.perPage);
+        this.setState({offset: offset, currentPage: page});
+        this.loadProfilesFromState(offset, page)};
+      
     render(){
-
         let { contactsPerPage } = this.state
-
-        const paginator = 
-        <Menu
-            onClick={this.handleClick}
-            selectedKeys={[this.state.current]}
-            mode="horizontal"
-        >
-        <Menu.Item key="app">
-                <ReactPaginate 
-                    previousLabel={"<"}
-                    previousClassName={"page-item"}
-                    previousLinkClassName={"page-link"}
-                    nextLabel={">"}
-                    nextClassName={"page-item"}
-                    nextLinkClassName={"page-link"}
-                    breakLabel={<a href="#">...</a>}
-                    breakClassName={"break-item"}
-                    pageCount={this.state.pageCount}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={this.handlePageClick}
-                    containerClassName={"pagination"}
-                    subContainerClassName={"pages pagination"}
-                    activeClassName={"active"} 
-                    pageClassName={"page-item"}
-                    pageLinkClassName={"page-link"}
-                /> 
-            </Menu.Item>
-
-            <Menu.Item className="ml-auto" navbar>
-                <Slider
-                    value={this.state.contactsPerPage}
-                    min={6}
-                    max={48}
-                    step={6}
-                    onChange={this.handleSliderChange}
-                />
-                
-                <div className="my-auto">
-                    <Badge color="primary">{this.state.contactsPerPage}</Badge>
-                </div>
-            </Menu.Item>
-            
-        </Menu>
-                                   
-            return(
-                <div style={{ background: '#FFF', padding: '30px' }} >
-                    <div className="container-fluid">
-                        <div className="card-decks">
-                                    {this.renderCards()}
-                        </div>
+        const paginator = <Pagination 
+                                      current = {this.state.currentPage}
+                                      total={this.props.results} 
+                                      onChange={this.handlePageClick} 
+                                      pageSize={this.props.perPage}
+                                      pageSizeOptions={['12', '24', '36', '48', '60', '72','84', '96']}
+                                      showQuickJumper
+                                      showSizeChanger 
+                                      onShowSizeChange={this.onShowSizeChange}                                      
+                                      />         
+        return(
+            <div >
+                <div className="container-fluid">
+                    <div className="card-decks">
+                                {this.renderCards()}
                     </div>
-                    {_.isEmpty(this.state.data)? <div /> : paginator}
-                </div>
-            );
+                </div>             
+                {_.isEmpty(this.state.data)? <div /> : paginator}
+            </div>
+        );
     }
   }
