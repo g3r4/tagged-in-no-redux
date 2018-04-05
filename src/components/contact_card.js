@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import md5 from 'md5';
 
 import { Card, Icon, Avatar } from 'antd';
-import { height } from 'window-size';
 const { Meta } = Card;
     
 
@@ -45,7 +44,7 @@ const { Meta } = Card;
                     style={{ width: 350, margin: 10, height: "min-content" }}
                     actions={[
                         <Icon type="edit" />, 
-                        <a class="mailto" href={mailto}><Icon type="mail"/> </a>, 
+                        <a className="mailto" href={mailto}><Icon type="mail"/> </a>, 
                         <Icon type="ellipsis" />]}
                 >
                     <Meta

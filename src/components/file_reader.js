@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-
 import converter from 'csvtojson';
+import { Upload, Icon } from 'antd';
 
-import { Upload, Icon, message } from 'antd';
 const Dragger = Upload.Dragger;
 
 export default class UploadFile extends Component{

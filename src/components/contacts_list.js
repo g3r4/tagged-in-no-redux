@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { Menu, Icon, Input, Badge, Pagination } from 'antd';
+import { Pagination } from 'antd';
 import ContactCard from './contact_card';
-
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-const Search = Input.Search;
 
 export default class ContactsList extends Component{
 
@@ -67,7 +63,6 @@ export default class ContactsList extends Component{
         this.loadProfilesFromState(offset, page)};
       
     render(){
-        let { contactsPerPage } = this.state
         const paginator = <Pagination 
                                       current = {this.state.currentPage}
                                       total={this.props.results} 

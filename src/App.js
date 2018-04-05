@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import UploadFile from './components/file_reader';
-import { Jumbotron } from 'react-bootstrap';
 import ContactsList from './components/contacts_list';
 import _ from 'lodash';
 import TaggedInNav from './components/nav_bar';
-import { Upload, Icon, message, Layout, Menu, Breadcrumb } from 'antd';
+import { Layout } from 'antd';
 
-const { Header, Content, Footer } = Layout;
-const Dragger = Upload.Dragger;
+const { Content, Footer } = Layout;
 
 class App extends Component {
   constructor(props){
@@ -94,7 +91,8 @@ class App extends Component {
 
       <Layout>
               <TaggedInNav setSearchTerm={this.setSearchTerm} 
-                          results={results}/>
+                          results={results}
+                          contacts={this.state.contacts}/>
         <Content style={{ padding: '0 50px', marginTop: 70 }}>
             {uploadFile}
             {contacts_list}
