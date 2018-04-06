@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import 'antd/dist/antd.css'
 
 
 ReactDOM.render(

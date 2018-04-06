@@ -5,6 +5,8 @@ import ContactsList from './components/contacts_list';
 import _ from 'lodash';
 import TaggedInNav from './components/nav_bar';
 import { Layout } from 'antd';
+import { DragDropContextProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 const { Content, Footer } = Layout;
 
@@ -87,6 +89,8 @@ class App extends Component {
                   results={results}/>
 
     return (
+            <DragDropContextProvider backend={HTML5Backend}>
+
               <div className="App">
 
       <Layout>
@@ -102,6 +106,8 @@ class App extends Component {
       </Footer>
       </Layout>
       </div>
+      </DragDropContextProvider>
+
 
     );
   }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Pagination } from 'antd';
 import ContactCard from './contact_card';
+import TagBucket from './tag_bucket';
+
 
 export default class ContactsList extends Component{
 
@@ -47,7 +49,7 @@ export default class ContactsList extends Component{
 
     renderCards = () => {
         return _.map(this.state.data, (contact) => {
-            return (<ContactCard key={contact["Email Address"]} contact={contact}/>)
+            return (<ContactCard key={contact["Email Address"]} contact={contact} name={contact["First Name"]}/>)
         })
     }
 
@@ -63,25 +65,26 @@ export default class ContactsList extends Component{
         this.loadProfilesFromState(offset, page)};
       
     render(){
-        const paginator = <Pagination 
-                                      current = {this.state.currentPage}
-                                      total={this.props.results} 
-                                      onChange={this.handlePageClick} 
-                                      pageSize={this.props.perPage}
-                                      pageSizeOptions={['12', '24', '36', '48', '60', '72','84', '96']}
-                                      showQuickJumper
-                                      showSizeChanger 
-                                      onShowSizeChange={this.onShowSizeChange}                                      
-                                      />         
-        return(
-            <div >
-                <div className="container-fluid">
-                    <div className="card-decks">
-                                {this.renderCards()}
-                    </div>
-                </div>             
-                {_.isEmpty(this.state.data)? <div /> : paginator}
-            </div>
-        );
+            const paginator = <Pagination 
+                                        current = {this.state.currentPage}
+                                        total={this.props.results} 
+                                        onChange={this.handlePageClick} 
+                                        pageSize={this.props.perPage}
+                                        pageSizeOptions={['12', '24', '36', '48', '60', '72','84', '96']}
+                                        showQuickJumper
+                                        showSizeChanger 
+                                        onShowSizeChange={this.onShowSizeChange}                                      
+                                        />         
+            return(
+                        <div >
+                            <div className="container-fluid">
+                                <div className="card-decks">
+                                            {this.renderCards()}
+                                </div>
+                            </div>             
+                            {_.isEmpty(this.state.data)? <div /> : paginator}
+                        </div>
+
+            );
     }
   }

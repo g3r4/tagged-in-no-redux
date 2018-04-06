@@ -1,27 +1,36 @@
 import React, { Component } from 'react';
 import converter from 'csvtojson';
-import { Upload, Icon } from 'antd';
+import { Upload, Icon, message } from 'antd';
 
 const Dragger = Upload.Dragger;
+
+const loadingContacts = () => {
+    const hide = message.loading('Loading contacts..', 0);
+    // Dismiss manually and asynchronously
+    setTimeout(hide, 2500);
+  };
 
 export default class UploadFile extends Component{
 
 
     handleFiles = files => {
-        console.log(files)
-        const contacts = {};
+        const status = files.file.status;
+        if (status !== 'uploading') {
+            loadingContacts()
+        }
 
+        const contacts = {};
         const file = files["file"];
         const reader = new FileReader();
         reader.onload = (event) => {
-            this.props.startLoading();
+            //this.props.startLoading();
             converter().fromString(event.target.result)
                 .on('json',(jsonObj)=> { 
                     contacts[jsonObj["Email Address"]] = jsonObj;
                 })
                 .on('done',()=> {
                     this.props.addContacts(contacts)
-                    this.props.stopLoading();
+              //      this.props.stopLoading();
                 })
         };
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import { Menu, Icon, Input, Badge, Layout,
-         AutoComplete } from 'antd';
+         AutoComplete, Button } from 'antd';
+import TagBucket from './tag_bucket';
 
 const Option = AutoComplete.Option;
 
@@ -53,6 +54,8 @@ export default class TaggedInNav extends React.Component {
     this.state = {
       isOpen: false,
       dataSource: [],
+      tagInputValue: '',
+      tagButtonBuckets: []
     };
   }
   toggle() {
@@ -72,8 +75,35 @@ export default class TaggedInNav extends React.Component {
     this.props.setSearchTerm(value)
   }
 
+  emitEmpty = () => {
+    this.tagInput.focus();
+    this.setState({ tagInputValue: '' });
+  }
+  onChangeTag = (e) => {
+    this.setState({ tagInputValue: e.target.value });
+  }
+
+  addTagButtonBucket = (e) => {
+    this.setState({ 
+        tagButtonBuckets: [...this.state.tagButtonBuckets, <TagBucket name={ e.target.value}/> ]
+    })
+    this.tagInput.focus();
+    this.setState({ tagInputValue: '' });
+  }
+
+  renderTagBuckets = () => {
+      return this.state.tagButtonBuckets.map( (TagButton) => {
+        return( <Menu.Item key={TagButton.props.name}>
+                    {TagButton}
+                </Menu.Item>
+      )
+    })
+  }
+
   render() {
-    const { dataSource } = this.state;
+    const { dataSource, tagInputValue } = this.state;
+    const suffix = tagInputValue ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
+
 
     return (
             <Header style={{ position: 'fixed', width: '100%', background:"white" , zIndex: 1000}}>
@@ -89,11 +119,24 @@ export default class TaggedInNav extends React.Component {
                 Tagged <Icon type="linkedin" /> 
             </Menu.Item>
 
-            <Menu.Item key="search">
-            <Search
-                onChange={this.handleSearchBarChange}
-                style={{ width: 200 }}
-                /> 
+            <Menu.Item key="search-autocomplete">
+                <div className="global-search-wrapper" style={{ width: 200 }}>
+                    <AutoComplete
+                    className="global-search"
+                    style={{ width: 200 }}
+                    dataSource={dataSource.map(renderOption)}
+                    onSelect={onSelect}
+                    onSearch={this.handleSearch}
+                    placeholder="Search contacts"
+                    optionLabelProp="text"
+                    >
+                    <Input
+                        suffix={(
+                            <Icon type="search" />
+                        )}
+                    />
+                    </AutoComplete>
+                </div>
             </Menu.Item>
 
             <Menu.Item key="results">
@@ -101,27 +144,19 @@ export default class TaggedInNav extends React.Component {
                 <Badge count={this.props.results} showZero overflowCount={9999} style={{ backgroundColor: '#1890ff' }}/>
             </Menu.Item>
 
-            <Menu.Item key="autocomplete">
-            <div className="global-search-wrapper" style={{ width: 300 }}>
-                <AutoComplete
-                className="global-search"
-                style={{ width: '100%' }}
-                dataSource={dataSource.map(renderOption)}
-                onSelect={onSelect}
-                onSearch={this.handleSearch}
-                placeholder="input here"
-                optionLabelProp="text"
-                >
+            <Menu.Item key="tags">
                 <Input
-                    suffix={(
-                        <Icon type="search" />
-                    )}
+                    placeholder="Add a new tag"
+                    //prefix={suffix}
+                    suffix={<Icon type="tag" />}
+                    value={tagInputValue}
+                    onChange={this.onChangeTag}
+                    onPressEnter={this.addTagButtonBucket}
+                    ref={node => this.tagInput = node}
                 />
-                </AutoComplete>
-            </div>
             </Menu.Item>
 
-
+            {this.renderTagBuckets()}
       </Menu>
       </Header>
 
