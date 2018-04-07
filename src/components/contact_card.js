@@ -19,6 +19,7 @@ const cardTarget = {
     drop(props , monitor) {
         //console.log(monitor.getItem())
         return { name: props.name,
+                 id: props.contact["Email Address"]
                 }
     }
 }
@@ -54,6 +55,7 @@ class ContactCard extends Component{
 
     static propTypes = {
         name: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
 		connectDropTarget: PropTypes.func.isRequired,
 		isOver: PropTypes.bool.isRequired,
         canDrop: PropTypes.bool.isRequired,
@@ -67,25 +69,18 @@ class ContactCard extends Component{
         })
     }
 
-    addTag = (tag) =>{
-        console.log("adding tag", tag);
-        if (!this.state.tags.includes(tag)){
-            this.setState({
-                tags: [...this.state.tags, tag]
-            })
-        }
-    }
-
     renderTags = () => {
-        return this.state.tags.map( (tag) => {
+        if (this.props.contact.tags !== undefined){
+        return this.props.contact.tags.map( (tag) => {
             return( <Tag key={tag}
                          closable
 
                     >
                         {tag}
                     </Tag>
-          )
-        })
+            )
+            })
+        }
     }
 
 //     componentDidUpdate(){
@@ -99,7 +94,7 @@ class ContactCard extends Component{
 // }
 
     render(){
-        const { canDrop, isOver, connectDropTarget, name, lastDroppedItem } = this.props
+        const { canDrop, isOver, connectDropTarget, name, lastDroppedItem, id } = this.props
         const isActive = canDrop && isOver
 
         if(isActive){

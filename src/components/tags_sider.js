@@ -10,7 +10,7 @@ export default class TagsSider extends Component{
     renderTagButtons = () => {
         return this.props.tags.map( (tag, index) => {
           return( <Menu.Item key={index} style={{ display: "-webkit-inline-box"}}>
-                        <TagButton name={ tag } />
+                        <TagButton name={ tag } addTagtoContact={this.props.addTagtoContact}/>
                         <Switch size="small" 
                             style={{ marginLeft: 10, marginRight: 10, }}
                         />

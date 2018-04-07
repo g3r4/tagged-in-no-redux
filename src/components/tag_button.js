@@ -19,7 +19,8 @@ const tagSource = {
 		const dropResult = monitor.getDropResult()
 
 		if (dropResult) {
-			alert(`You dropped ${item.name} into ${dropResult.name}!`) // eslint-disable-line no-alert
+      props.addTagtoContact(dropResult.id, item.name)
+			//alert(`You dropped ${item.name} into ${dropResult.id}!`) // eslint-disable-line no-alert
 		}
 	},
   };

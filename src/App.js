@@ -44,7 +44,7 @@ class App extends Component {
     }
 
     const obj = filteredContacts.reduce(function(result, item, index, array) {
-      result[index] = item; 
+      result[item["Email Address"]] = item; 
       return result;
     }, {}) //watch out the empty {}, which is passed as "result"
 
@@ -54,7 +54,7 @@ class App extends Component {
       filteredContactsObj: obj
     })
 
-    //console.log(obj);
+    console.log(obj);
   }
 
   startLoading = () => {
@@ -75,6 +75,25 @@ class App extends Component {
 
   setPerPage = (sliderValue) => {
     this.setState({ perPage : sliderValue})
+  }
+
+  addTagtoContact = (id, tag) => {
+    if ( !("tags" in this.state.contacts[id]) ){
+      this.setState({
+        contacts: {...this.state.contacts, [id]: {...this.state.contacts[id], tags: []}}
+      })
+    }
+
+    this.setState({
+      contacts: {...this.state.contacts, [id]: {...this.state.contacts[id], tags: [...this.state.contacts[id]['tags'], tag]}}
+    })
+
+    // Update contact on filteredContacts if we have them to reflect new tags 
+    if ((id in this.state.filteredContactsObj)){
+      this.setState({
+        filteredContactsObj: {...this.state.filteredContactsObj, [id]: this.state.contacts[id] }
+      })
+    }
   }
 
   render() {
@@ -102,7 +121,7 @@ class App extends Component {
               <div className="App">
 
       <Layout>
-        <TagsSider tags={this.state.tags}/>
+        <TagsSider tags={this.state.tags} addTagtoContact={this.addTagtoContact}/>
           <Layout style={{ marginRight: 250 }}>
             <TaggedInNav setSearchTerm={this.setSearchTerm} 
                           addTag={this.addTag}

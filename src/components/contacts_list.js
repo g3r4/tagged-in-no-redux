@@ -11,7 +11,6 @@ export default class ContactsList extends Component{
 
         this.state = {
             data: {},
-            offset: 0,
             contacts: {},
             contactsPerPage: 0,
             currentPage:1
@@ -24,11 +23,16 @@ export default class ContactsList extends Component{
 
     componentDidUpdate(){
             if ( (this.state.contacts !== this.props.contacts) || (this.state.contactsPerPage !== this.props.perPage)){
+                // if the objects are the same size, send current page as offset, if not, might be a new search
+                // reset the offset to 0 so we can start at the first page
+                const selected = Object.keys(this.state.contacts).length === Object.keys(this.props.contacts).length ?
+                                this.state.currentPage-1 : 0
+                let offset = Math.ceil(selected * this.props.perPage);
                 this.setState({
                     contacts: this.props.contacts,
-                    offset: 0,
                     contactsPerPage: this.props.perPage
-                }, this.loadProfilesFromState())    
+                })
+                this.loadProfilesFromState(offset)    
             }
     }
 
@@ -48,7 +52,10 @@ export default class ContactsList extends Component{
 
     renderCards = () => {
         return _.map(this.state.data, (contact) => {
-            return (<ContactCard key={contact["Email Address"]} contact={contact} name={contact["First Name"]}/>)
+            return (<ContactCard key={contact["Email Address"]} 
+                                contact={contact} 
+                                name={contact["First Name"]} 
+                    />)
         })
     }
 
