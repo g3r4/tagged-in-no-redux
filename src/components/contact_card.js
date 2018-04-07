@@ -16,9 +16,11 @@ message.config({
  * Implements the drop source contract.
  */
 const cardTarget = {
-	drop() {
-		return { name: 'Dustbin' }
-	},
+    drop(props , monitor) {
+        //console.log(monitor.getItem())
+        return { name: props.name,
+                }
+    }
 }
   
 /**
@@ -33,6 +35,7 @@ function collect(connect, monitor) {
       isOver: monitor.isOver(),
       //isOverCurrent: monitor.isOver({ shallow: true }),
       canDrop: monitor.canDrop(),
+      lastDroppedItem: monitor.getItem()
       //itemType: monitor.getItemType()
     };
   }
@@ -53,7 +56,8 @@ class ContactCard extends Component{
         name: PropTypes.string.isRequired,
 		connectDropTarget: PropTypes.func.isRequired,
 		isOver: PropTypes.bool.isRequired,
-		canDrop: PropTypes.bool.isRequired,
+        canDrop: PropTypes.bool.isRequired,
+        lastDroppedItem: PropTypes.object,
 	}
 
     addNote = () => {
@@ -95,8 +99,13 @@ class ContactCard extends Component{
 // }
 
     render(){
-        const { canDrop, isOver, connectDropTarget, name } = this.props
+        const { canDrop, isOver, connectDropTarget, name, lastDroppedItem } = this.props
         const isActive = canDrop && isOver
+
+        if(isActive){
+            console.log(JSON.stringify(lastDroppedItem))
+        }
+        
 
         const cardDescription = <div>
                                     <div style={{ fontWeight: 700, marginBottom: 10 }}>
@@ -123,7 +132,7 @@ class ContactCard extends Component{
                     style={{ width: 350, 
                             margin: 10, 
                             height: "min-content", 
-                            border: canDrop ? '1px solid #188fff' : ''}}
+                            border: canDrop ? '1px dashed #188fff' : ''}}
                     actions={[
                         <Icon type="edit" />, 
                         <a className="mailto" href={mailto}><Icon type="mail"/> </a>, 
