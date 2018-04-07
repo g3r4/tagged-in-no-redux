@@ -1,68 +1,70 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { DropTarget } from 'react-dnd'
+import { DragSource } from 'react-dnd'
 import { Button, Switch } from 'antd';
 
 const style = {
 	width: 'auto',
 }
 
-const boxTarget = {
-	drop(props) {
-		return { name: props.name }
+const tagSource = {
+    beginDrag(props) {
+      return {
+        name: props.name,
+        };
     },
-}
 
-/**
- * Specifies which props to inject into your component.
- */
-function collect(connect, monitor) {
+    endDrag(props, monitor) {
+		const item = monitor.getItem()
+		const dropResult = monitor.getDropResult()
+
+		if (dropResult) {
+			alert(`You dropped ${item.name} into ${dropResult.name}!`) // eslint-disable-line no-alert
+		}
+	},
+  };
+  
+  /**
+   * Specifies the props to inject into your component.
+   */
+  function collect(connect, monitor) {
     return {
-      // Call this function inside render()
-      // to let React DnD handle the drag events:
-      connectDropTarget: connect.dropTarget(),
-      // You can ask the monitor about the current drag state:
-      isOver: monitor.isOver(),
-      //isOverCurrent: monitor.isOver({ shallow: true }),
-      canDrop: monitor.canDrop(),
-      //itemType: monitor.getItemType()
+      connectDragSource: connect.dragSource(),
+      isDragging: monitor.isDragging(),
+      bucketTag: monitor.getDropResult()
     };
   }
+  
+  const propTypes = {
+    name: PropTypes.string.isRequired,
+    bucketTag: PropTypes.string.isRequired,
+    // Injected by React DnD:
+    isDragging: PropTypes.bool.isRequired,
+    connectDragSource: PropTypes.func.isRequired,
+  };
 
 
-class TagButton extends Component {
-	static propTypes = {
-        name: PropTypes.string.isRequired,
-		connectDropTarget: PropTypes.func.isRequired,
-		isOver: PropTypes.bool.isRequired,
-		canDrop: PropTypes.bool.isRequired,
-	}
+class TagButton extends Component{
+
+    constructor(props){
+        super(props)
+
+    }
 
 	render() {
-		const { canDrop, isOver, connectDropTarget, name } = this.props
-		const isActive = canDrop && isOver
+        const { isDragging, connectDragSource, name, bucketTag } = this.props;
 
-		// let backgroundColor = '#222'
-		// if (isActive) {
-		// 	backgroundColor = 'darkgreen'
-		// } else if (canDrop) {
-		// 	backgroundColor = 'darkkhaki'
-		// }
-
-		return connectDropTarget(
+		return connectDragSource(
 			<div >
                 <Button icon="tag-o"
-                        style={{ ...style, }}
-                        loading={canDrop ? true : false}> 
+                        style={{ ...style, width: 170 }}
+                        loading={false}> 
                     		{name} 
                 </Button>
-				<Switch size="small" 
-						style={{ marginLeft: 20, marginRight: 20, }}
-				/>
 			</div>
 		)
 	}
 }
 
 // Export the wrapped component:
-export default DropTarget("CARD", boxTarget, collect)(TagButton);
+export default DragSource("CARD", tagSource, collect)(TagButton);

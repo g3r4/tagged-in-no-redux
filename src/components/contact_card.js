@@ -3,7 +3,7 @@ import md5 from 'md5';
 
 import { Card, Icon, Avatar, Tag, message } from 'antd';
 import PropTypes from 'prop-types'
-import { DragSource } from 'react-dnd'
+import { DropTarget } from 'react-dnd'
 
 const { Meta } = Card;
 
@@ -13,47 +13,29 @@ message.config({
   });
 
 /**
- * Implements the drag source contract.
+ * Implements the drop source contract.
  */
-const cardSource = {
-    beginDrag(props) {
-      return {
-        name: props.name,
-        };
-    },
-
-    endDrag(props, monitor) {
-		const item = monitor.getItem()
-        const dropResult = monitor.getDropResult()
-        
-        const tagSuccess = () => {
-            message.success(`${item.name} tagged with ${dropResult.name}!`);
-          };
-
-		if (dropResult) {
-            tagSuccess()
-        }
+const cardTarget = {
+	drop() {
+		return { name: 'Dustbin' }
 	},
-  };
+}
   
-  /**
-   * Specifies the props to inject into your component.
-   */
-  function collect(connect, monitor) {
+/**
+ * Specifies which props to inject into your component.
+ */
+function collect(connect, monitor) {
     return {
-      connectDragSource: connect.dragSource(),
-      isDragging: monitor.isDragging(),
-      bucketTag: monitor.getDropResult()
+      // Call this function inside render()
+      // to let React DnD handle the drag events:
+      connectDropTarget: connect.dropTarget(),
+      // You can ask the monitor about the current drag state:
+      isOver: monitor.isOver(),
+      //isOverCurrent: monitor.isOver({ shallow: true }),
+      canDrop: monitor.canDrop(),
+      //itemType: monitor.getItemType()
     };
   }
-  
-  const propTypes = {
-    name: PropTypes.string.isRequired,
-    bucketTag: PropTypes.string.isRequired,
-    // Injected by React DnD:
-    isDragging: PropTypes.bool.isRequired,
-    connectDragSource: PropTypes.func.isRequired,
-  };
 
 
 class ContactCard extends Component{
@@ -66,6 +48,13 @@ class ContactCard extends Component{
             tags: []
         }
     }
+
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+		connectDropTarget: PropTypes.func.isRequired,
+		isOver: PropTypes.bool.isRequired,
+		canDrop: PropTypes.bool.isRequired,
+	}
 
     addNote = () => {
         console.log("adding note");
@@ -95,18 +84,20 @@ class ContactCard extends Component{
         })
     }
 
-    componentDidUpdate(){
-        // Fix this thing
-        const { isDragging, connectDragSource, name, bucketTag } = this.props;
-        if(bucketTag !== null){
-            if (name === this.props.contact["First Name"]){
-                this.addTag(bucketTag.name)
-            }
-        }
-}
+//     componentDidUpdate(){
+//         //Fix this thing
+//         const { isDragging, connectDragSource, name, bucketTag } = this.props;
+//         if(bucketTag !== null){
+//             if (name === this.props.contact["First Name"]){
+//                 this.addTag(bucketTag.name)
+//             }
+//         }
+// }
 
     render(){
-        const { isDragging, connectDragSource, name, bucketTag } = this.props;
+        const { canDrop, isOver, connectDropTarget, name } = this.props
+        const isActive = canDrop && isOver
+
         const cardDescription = <div>
                                     <div style={{ fontWeight: 700, marginBottom: 10 }}>
                                         {this.props.contact["Company"]}
@@ -124,11 +115,15 @@ class ContactCard extends Component{
 
         const gravatarImageURL = `http://www.gravatar.com/avatar/${md5(this.props.contact["Email Address"])}?s=100&d=identicon`
         const mailto = `mailto:${this.props.contact["Email Address"]}`
-        return connectDragSource(
-            <div style={{ opacity: isDragging ? 0.2 : 1 }}>
+        return connectDropTarget(
+            <div //style={{ opacity: canDrop ? 0.2 : 1 }}
+            >
                 <Card
                     hoverable
-                    style={{ width: 350, margin: 10, height: "min-content"}}
+                    style={{ width: 350, 
+                            margin: 10, 
+                            height: "min-content", 
+                            border: canDrop ? '1px solid #188fff' : ''}}
                     actions={[
                         <Icon type="edit" />, 
                         <a className="mailto" href={mailto}><Icon type="mail"/> </a>, 
@@ -145,7 +140,5 @@ class ContactCard extends Component{
     }
 }
 
-Card.propTypes = propTypes;
-
 // Export the wrapped component:
-export default DragSource("CARD", cardSource, collect)(ContactCard);
+export default DropTarget("CARD", cardTarget, collect)(ContactCard);
