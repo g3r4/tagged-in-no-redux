@@ -43,7 +43,7 @@
                             },
     "ironman@marvel.demo": {
                                 "First Name": "Tony",
-                                "Last Name": "Start",
+                                "Last Name": "Stark",
                                 "Company": "Avengers",
                                 "Email Address": "ironman@marvel.demo",
                                 "Position": "Iron Man"
@@ -89,6 +89,48 @@
                                 "Company": "X-Force",
                                 "Email Address": "deadpool@marvel.demo",
                                 "Position": "Deadpool"
+                            },
+    "carnage@marvel.demo": {
+                                "First Name": "Cletus",
+                                "Last Name": "Kasady",
+                                "Company": "No affiliation",
+                                "Email Address": "carnage@marvel.demo",
+                                "Position": "Carnage"
+                            },
+    "magneto@marvel.demo": {
+                                "First Name": "Erik",
+                                "Last Name": "Magnus",
+                                "Company": "X-Men",
+                                "Email Address": "magneto@marvel.demo",
+                                "Position": "Magneto"
+                            },
+    "beast@marvel.demo": {
+                                "First Name": "Henry",
+                                "Last Name": "McCoy",
+                                "Company": "X-Men",
+                                "Email Address": "beast@marvel.demo",
+                                "Position": "Beast"
+                            },
+    "starlord@marvel.demo": {
+                                "First Name": "Peter",
+                                "Last Name": "Quill",
+                                "Company": "Guardians of the galaxy",
+                                "Email Address": "starlord@marvel.demo",
+                                "Position": "Star Lord"
+                            },
+    "thor@marvel.demo": {
+                                "First Name": "Thor",
+                                "Last Name": "Odinson",
+                                "Company": "Avengers",
+                                "Email Address": "thor@marvel.demo",
+                                "Position": "Thor"
+                            },
+    "hulk@marvel.demo": {
+                                "First Name": "Bruce",
+                                "Last Name": "Banner",
+                                "Company": "Avengers",
+                                "Email Address": "hulk@marvel.demo",
+                                "Position": "Hulk"
                             },
     "cable@marvel.demo": {
                                 "First Name": "Nathan",
