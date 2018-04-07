@@ -1,0 +1,101 @@
+{
+    "wolverine@marvel.demo": {
+                                "First Name": "Logan",
+                                "Last Name": "",
+                                "Company": "X-Men",
+                                "Email Address": "wolverine@marvel.demo",
+                                "Position": "Wolverine"
+                            },
+    "cyclops@marvel.demo": {
+                                "First Name": "Scott",
+                                "Last Name": "Summers",
+                                "Company": "X-Men",
+                                "Email Address": "cyclops@marvel.demo",
+                                "Position": "Cyclops"
+                            },
+    "storm@marvel.demo": {
+                                "First Name": "Ororo",
+                                "Last Name": "Munroe",
+                                "Company": "X-Men",
+                                "Email Address": "storm@marvel.demo",
+                                "Position": "Storm"
+                            },
+    "jean.grey@marvel.demo": {
+                                "First Name": "Jean",
+                                "Last Name": "Grey",
+                                "Company": "X-Men",
+                                "Email Address": "jean.grey@marvel.demo",
+                                "Position": "Jean Grey"
+                            },
+    "blackpanther@marvel.demo": {
+                                "First Name": "T'",
+                                "Last Name": "Challa",
+                                "Company": "Wakandans",
+                                "Email Address": "blackpanther@marvel.demo",
+                                "Position": "Black Panther"
+                            },
+    "captain@marvel.demo": {
+                                "First Name": "Steve",
+                                "Last Name": "Rogers",
+                                "Company": "Avengers",
+                                "Email Address": "captain@marvel.demo",
+                                "Position": "Captain America"
+                            },
+    "ironman@marvel.demo": {
+                                "First Name": "Tony",
+                                "Last Name": "Start",
+                                "Company": "Avengers",
+                                "Email Address": "ironman@marvel.demo",
+                                "Position": "Iron Man"
+                            },
+    "spiderman@marvel.demo": {
+                                "First Name": "Peter",
+                                "Last Name": "Parker",
+                                "Company": "Avengers",
+                                "Email Address": "spiderman@marvel.demo",
+                                "Position": "Spider Man"
+                            },
+    "psylocke@marvel.demo": {
+                                "First Name": "Elizabeth",
+                                "Last Name": "Braddock",
+                                "Company": "X-Men",
+                                "Email Address": "psylocke@marvel.demo",
+                                "Position": "Psylocke"
+                            },
+    "venom@marvel.demo": {
+                                "First Name": "Eddie",
+                                "Last Name": "Brock",
+                                "Company": "No affiliation",
+                                "Email Address": "venom@marvel.demo",
+                                "Position": "Venom"
+                            },
+    "daredevil@marvel.demo": {
+                                "First Name": "Matt",
+                                "Last Name": "Murdock",
+                                "Company": "Defenders",
+                                "Email Address": "daredevil@marvel.demo",
+                                "Position": "Daredevil"
+                            },
+    "jessica.jones@marvel.demo": {
+                                "First Name": "Jessica",
+                                "Last Name": "Jones",
+                                "Company": "Defenders",
+                                "Email Address": "jessica.jones@marvel.demo",
+                                "Position": "Jessica Jones"
+                            },
+    "deadpool@marvel.demo": {
+                                "First Name": "Wade",
+                                "Last Name": "Wilson",
+                                "Company": "X-Force",
+                                "Email Address": "deadpool@marvel.demo",
+                                "Position": "Deadpool"
+                            },
+    "cable@marvel.demo": {
+                                "First Name": "Nathan",
+                                "Last Name": "Summers",
+                                "Company": "X-Force",
+                                "Email Address": "cable@marvel.demo",
+                                "Position": "Cable"
+                            }
+                            
+}

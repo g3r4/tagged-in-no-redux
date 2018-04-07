@@ -5,6 +5,7 @@ import ContactsList from './components/contacts_list';
 import _ from 'lodash';
 import TaggedInNav from './components/nav_bar';
 import TagsSider from './components/tags_sider';
+import DemoHeroContacts from './demo/heroContacts.json'
 import { Layout } from 'antd';
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
@@ -96,6 +97,11 @@ class App extends Component {
     }
   }
 
+  createDemoContacts = () =>{
+    this.setState({"contacts": DemoHeroContacts,
+                    "tags": ["Hero", "Villian", "Mutant", "Adamantium", "Vibranium"]})
+  }
+
   render() {
     
     const uploadFile = _.isEmpty(this.state.contacts) ? 
@@ -126,7 +132,9 @@ class App extends Component {
             <TaggedInNav setSearchTerm={this.setSearchTerm} 
                           addTag={this.addTag}
                           results={results}
-                          contacts={this.state.contacts}/>
+                          contacts={this.state.contacts}
+                          createDemoContacts={this.createDemoContacts}
+            />
             <Content style={{ padding: '0 50px', marginTop: 70, minHeight: 800 }}>
               {uploadFile}
               {contacts_list}

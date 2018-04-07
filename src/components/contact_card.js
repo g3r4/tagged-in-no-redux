@@ -116,8 +116,12 @@ class ContactCard extends Component{
                                         {this.renderTags()}
                                     </div>
                                 </div>
+        
+        // If contact is hero (email ending in demo), get his/her image as avatar
+        const avatarImageURL = this.props.contact["Email Address"].includes(".demo") ?
+                                `https://www.superherodb.com/pictures/portraits/${this.props.contact["Position"].replace(/\s/g, '-').toLowerCase()}.jpg` :
+                                `http://www.gravatar.com/avatar/${md5(this.props.contact["Email Address"])}?s=100&d=identicon`
 
-        const gravatarImageURL = `http://www.gravatar.com/avatar/${md5(this.props.contact["Email Address"])}?s=100&d=identicon`
         const mailto = `mailto:${this.props.contact["Email Address"]}`
         return connectDropTarget(
             <div //style={{ opacity: canDrop ? 0.2 : 1 }}
@@ -134,7 +138,7 @@ class ContactCard extends Component{
                         <Icon type="ellipsis" />]}
                 >
                     <Meta
-                    avatar={<Avatar src={gravatarImageURL} />}
+                    avatar={<Avatar src={avatarImageURL} />}
                     title={this.props.contact["First Name"] + " " + this.props.contact["Last Name"]}
                     description={cardDescription}
                     />

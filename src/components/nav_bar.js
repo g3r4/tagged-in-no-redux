@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import heroDemoIcon from'../demo/wolverine.png';
 import { Menu, Icon, Input, Badge, Layout,
          AutoComplete, Button } from 'antd';
 
@@ -147,6 +148,13 @@ export default class TaggedInNav extends React.Component {
                     ref={node => this.tagInput = node}
                 />
             </Menu.Item>
+
+            <Menu.Item key="hero-demo-button" style={{float:"right"}}>
+                <Button onClick={this.props.createDemoContacts}>
+                    <img  src={heroDemoIcon} style={{}} alt="Hero Demo"/>
+                </Button>
+            </Menu.Item>
+
       </Menu>
       </Header>
 
