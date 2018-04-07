@@ -28,6 +28,7 @@ export default class TagsSider extends Component{
                 <Input
                     placeholder="Filter your tags"
                     suffix={<Icon type="tags" />}
+                    disabled={this.props.tags.length === 0 ? true: false}
                 />
             </Menu.Item>
 
@@ -37,6 +38,7 @@ export default class TagsSider extends Component{
                 <Button type="danger" 
                         icon="close-circle-o"
                         style={{ width: '-webkit-fill-available' }}
+                        disabled={this.props.tags.length === 0 ? true: false}
                 >
                     Delete tags list
                 </Button>
@@ -44,6 +46,7 @@ export default class TagsSider extends Component{
             <Menu.Item key="clear-tag-filters">
                 <Button type="dashed"
                         style={{ width: '-webkit-fill-available' }}
+                        disabled={this.props.tags.length === 0 ? true: false}
                 >
                     Clear tag filters
                 </Button>
