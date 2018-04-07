@@ -2,13 +2,15 @@ import React from 'react';
 import _ from 'lodash';
 import { Menu, Icon, Input, Badge, Layout,
          AutoComplete, Button } from 'antd';
-import TagBucket from './tag_bucket';
 
 const Option = AutoComplete.Option;
 
 const { Header } = Layout;
 
 const Search = Input.Search;
+
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
 function onSelect(value) {
     console.log('onSelect', value);
@@ -54,10 +56,10 @@ export default class TaggedInNav extends React.Component {
     this.state = {
       isOpen: false,
       dataSource: [],
-      tagInputValue: '',
-      tagButtonBuckets: []
+      tagInputValue: ''
     };
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -79,25 +81,15 @@ export default class TaggedInNav extends React.Component {
     this.tagInput.focus();
     this.setState({ tagInputValue: '' });
   }
+  
   onChangeTag = (e) => {
     this.setState({ tagInputValue: e.target.value });
   }
 
-  addTagButtonBucket = (e) => {
-    this.setState({ 
-        tagButtonBuckets: [...this.state.tagButtonBuckets, <TagBucket name={ e.target.value}/> ]
-    })
+  handleEnterAddTag = (e) => {
+    this.props.addTag(e.target.value)
     this.tagInput.focus();
     this.setState({ tagInputValue: '' });
-  }
-
-  renderTagBuckets = () => {
-      return this.state.tagButtonBuckets.map( (TagButton) => {
-        return( <Menu.Item key={TagButton.props.name}>
-                    {TagButton}
-                </Menu.Item>
-      )
-    })
   }
 
   render() {
@@ -144,19 +136,17 @@ export default class TaggedInNav extends React.Component {
                 <Badge count={this.props.results} showZero overflowCount={9999} style={{ backgroundColor: '#1890ff' }}/>
             </Menu.Item>
 
-            <Menu.Item key="tags">
+            <Menu.Item key="create-tag">
                 <Input
                     placeholder="Add a new tag"
                     //prefix={suffix}
                     suffix={<Icon type="tag" />}
                     value={tagInputValue}
                     onChange={this.onChangeTag}
-                    onPressEnter={this.addTagButtonBucket}
+                    onPressEnter={this.handleEnterAddTag}
                     ref={node => this.tagInput = node}
                 />
             </Menu.Item>
-
-            {this.renderTagBuckets()}
       </Menu>
       </Header>
 

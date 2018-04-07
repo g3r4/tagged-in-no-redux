@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Pagination } from 'antd';
 import ContactCard from './contact_card';
-import TagBucket from './tag_bucket';
 
 
 export default class ContactsList extends Component{

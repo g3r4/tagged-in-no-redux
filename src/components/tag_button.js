@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
-import { Button } from 'antd';
+import { Button, Switch } from 'antd';
 
 const style = {
 	width: 'auto',
@@ -30,7 +30,7 @@ function collect(connect, monitor) {
   }
 
 
-class TagBucket extends Component {
+class TagButton extends Component {
 	static propTypes = {
         name: PropTypes.string.isRequired,
 		connectDropTarget: PropTypes.func.isRequired,
@@ -52,15 +52,17 @@ class TagBucket extends Component {
 		return connectDropTarget(
 			<div >
                 <Button icon="tag-o"
-                        style={{ ...style }}
+                        style={{ ...style, }}
                         loading={canDrop ? true : false}> 
-                    {name} 
+                    		{name} 
                 </Button>
-				
-			</div>,
+				<Switch size="small" 
+						style={{ marginLeft: 20, marginRight: 20, }}
+				/>
+			</div>
 		)
 	}
 }
 
 // Export the wrapped component:
-export default DropTarget("CARD", boxTarget, collect)(TagBucket);
+export default DropTarget("CARD", boxTarget, collect)(TagButton);

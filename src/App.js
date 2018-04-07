@@ -4,6 +4,7 @@ import UploadFile from './components/file_reader';
 import ContactsList from './components/contacts_list';
 import _ from 'lodash';
 import TaggedInNav from './components/nav_bar';
+import TagsSider from './components/tags_sider';
 import { Layout } from 'antd';
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
@@ -19,8 +20,15 @@ class App extends Component {
         loading: false,
         searchterm: "",
         filteredContactsObj:{},
-        perPage: 12
+        perPage: 12, 
+        tags: []
     }
+  }
+
+  addTag = (tag) => {
+    this.setState({
+      tags: [...this.state.tags, tag]
+    })
   }
 
   setSearchTerm = (term) => {
@@ -94,17 +102,22 @@ class App extends Component {
               <div className="App">
 
       <Layout>
-              <TaggedInNav setSearchTerm={this.setSearchTerm} 
+        <TagsSider tags={this.state.tags}/>
+          <Layout style={{ marginRight: 250 }}>
+            <TaggedInNav setSearchTerm={this.setSearchTerm} 
+                          addTag={this.addTag}
                           results={results}
                           contacts={this.state.contacts}/>
-        <Content style={{ padding: '0 50px', marginTop: 70 }}>
-            {uploadFile}
-            {contacts_list}
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-        Tagged in ©2018 Created by Gerardo Maldonado for Bixal
-      </Footer>
+            <Content style={{ padding: '0 50px', marginTop: 70, minHeight: 800 }}>
+              {uploadFile}
+              {contacts_list}
+            </Content>
+            <Footer style={{ textAlign: 'center' }}>
+              Tagged in ©2018 Created by Gerardo Maldonado for Bixal
+            </Footer>
+          </Layout>
       </Layout>
+
       </div>
       </DragDropContextProvider>
 
