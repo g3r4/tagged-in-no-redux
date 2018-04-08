@@ -50,7 +50,6 @@ class ContactCard extends Component{
 
         this.state = {
             addnote: false,
-            tags: []
         }
     }
 
@@ -71,7 +70,7 @@ class ContactCard extends Component{
     }
 
     renderTags = () => {
-        if (this.props.contact.tags !== undefined){
+        //if (this.props.contact.tags !== undefined){
         return _.map(this.props.contact.tags, (tag) => {
             return( <Tag key={tag}
                          closable
@@ -81,7 +80,7 @@ class ContactCard extends Component{
                     </Tag>
             )
             })
-        }
+        //}
     }
 
     render(){

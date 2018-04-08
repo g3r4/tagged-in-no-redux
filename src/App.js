@@ -28,7 +28,7 @@ class App extends Component {
 
   addGlobalTag = (tag) => {
     this.setState({
-      tags: [...this.state.tags, {[tag] : tag}]
+      tags: {...this.state.tags, [tag] : tag }
     })
   }
 
@@ -79,11 +79,6 @@ class App extends Component {
   }
 
   addTagtoContact = (id, tag) => {
-    if ( !("tags" in this.state.contacts[id]) ){
-      this.setState({
-        contacts: {...this.state.contacts, [id]: {...this.state.contacts[id], tags: {} }}
-      })
-    }
 
     this.setState({
       contacts: {...this.state.contacts, [id]: {...this.state.contacts[id], tags: {...this.state.contacts[id].tags, [tag]: tag} } } 
@@ -97,9 +92,29 @@ class App extends Component {
     }
   }
 
+  addTagToDisplayedContacts = (tag) => {
+
+    const contactsToMapOver = _.isEmpty(this.state.filteredContactsObj) ? this.state.contacts : this.state.filteredContactsObj
+    
+    // _.reduce is _.map equivalence to return an object instead of an array _.filter and _.reject are _.pick and _.omit collections equivalences too
+    const taggedContacts = _.reduce( contactsToMapOver,
+         (result, value, key) => {
+          contactsToMapOver[key] = {...contactsToMapOver[key], tags: {...contactsToMapOver[key].tags, [tag]:tag} };
+          return contactsToMapOver;
+        }, {});
+    
+        this.setState({
+          contacts: {...this.state.contacts, ...taggedContacts},
+          filteredContactsObj: {...this.state.filteredContactsObj, ...taggedContacts}
+        })
+
+    console.log(taggedContacts)
+  }
+
   createDemoContacts = () =>{
     this.setState({"contacts": DemoHeroContacts,
-                    "tags": ["Hero", "Villian", "Mutant", "Adamantium", "Vibranium"]})
+                    "tags": {"Hero": "Hero", "Villian": "Villian", "Mutant": "Mutant", "Adamantium":"Adamantium", "Vibranium":"Vibranium"}
+    })
     message.success('Hero demo contacts created successfully');
   }
 
@@ -128,7 +143,11 @@ class App extends Component {
               <div className="App">
 
       <Layout>
-        <TagsSider tags={this.state.tags} addTagtoContact={this.addTagtoContact}/>
+        <TagsSider tags={this.state.tags} 
+                   addTagtoContact={this.addTagtoContact}
+                   addTagToDisplayedContacts={this.addTagToDisplayedContacts}
+                   results={results}
+        />
           <Layout style={{ marginRight: 250 }}>
             <TaggedInNav setSearchTerm={this.setSearchTerm} 
                           addTag={this.addGlobalTag}

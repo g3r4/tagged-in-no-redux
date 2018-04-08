@@ -11,7 +11,11 @@ export default class TagsSider extends Component{
     renderTagButtons = () => {
         return _.map(this.props.tags, (tag, index) => {
           return( <Menu.Item key={index} style={{ display: "-webkit-inline-box"}}>
-                        <TagButton name={ tag } addTagtoContact={this.props.addTagtoContact}/>
+                        <TagButton name={ tag } 
+                                   addTagtoContact={this.props.addTagtoContact}
+                                   addTagToDisplayedContacts={this.props.addTagToDisplayedContacts}
+                                   results={this.props.results}
+                        />
                         <Switch size="small" 
                             style={{ marginLeft: 10, marginRight: 10, }}
                         />
@@ -29,7 +33,7 @@ export default class TagsSider extends Component{
                 <Input
                     placeholder="Filter your tags"
                     suffix={<Icon type="tags" />}
-                    disabled={this.props.tags.length === 0 ? true: false}
+                    disabled={Object.keys(this.props.tags).length === 0 ? true: false}
                 />
             </Menu.Item>
 
@@ -39,7 +43,7 @@ export default class TagsSider extends Component{
                 <Button type="danger" 
                         icon="close-circle-o"
                         style={{ width: '-webkit-fill-available' }}
-                        disabled={this.props.tags.length === 0 ? true: false}
+                        disabled={Object.keys(this.props.tags).length === 0 ? true: false}
                 >
                     Delete tags list
                 </Button>
@@ -47,7 +51,7 @@ export default class TagsSider extends Component{
             <Menu.Item key="clear-tag-filters">
                 <Button type="dashed"
                         style={{ width: '-webkit-fill-available' }}
-                        disabled={this.props.tags.length === 0 ? true: false}
+                        disabled={Object.keys(this.props.tags).length === 0 ? true: false}
                 >
                     Clear tag filters
                 </Button>
