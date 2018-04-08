@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import md5 from 'md5';
 
 import { Card, Icon, Avatar, Tag, message } from 'antd';
@@ -71,10 +72,10 @@ class ContactCard extends Component{
 
     renderTags = () => {
         if (this.props.contact.tags !== undefined){
-        return this.props.contact.tags.map( (tag) => {
+        return _.map(this.props.contact.tags, (tag) => {
             return( <Tag key={tag}
                          closable
-
+                         style={{ marginTop:10 }}
                     >
                         {tag}
                     </Tag>
@@ -82,16 +83,6 @@ class ContactCard extends Component{
             })
         }
     }
-
-//     componentDidUpdate(){
-//         //Fix this thing
-//         const { isDragging, connectDragSource, name, bucketTag } = this.props;
-//         if(bucketTag !== null){
-//             if (name === this.props.contact["First Name"]){
-//                 this.addTag(bucketTag.name)
-//             }
-//         }
-// }
 
     render(){
         const { canDrop, isOver, connectDropTarget, name, lastDroppedItem, id } = this.props
@@ -117,7 +108,7 @@ class ContactCard extends Component{
                                     </div>
                                 </div>
         
-        // If contact is hero (email ending in demo), get his/her image as avatar
+        // If contact is hero (email ending in demo), get his/her image as avatar from superherodb, if not, gravatar it
         const avatarImageURL = this.props.contact["Email Address"].includes(".demo") ?
                                 `https://www.superherodb.com/pictures/portraits/${this.props.contact["Position"].replace(/\s/g, '-').toLowerCase()}.jpg` :
                                 `http://www.gravatar.com/avatar/${md5(this.props.contact["Email Address"])}?s=100&d=identicon`

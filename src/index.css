@@ -70,3 +70,8 @@ body {
 .anticon-close-circle:active {
   color: #666;
 }
+
+.wolverine-demo-button:hover {
+  /* background-color: #fffb8f !important; */
+  /* border-color: black !important; */
+}   

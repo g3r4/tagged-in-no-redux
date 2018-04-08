@@ -6,7 +6,7 @@ import _ from 'lodash';
 import TaggedInNav from './components/nav_bar';
 import TagsSider from './components/tags_sider';
 import DemoHeroContacts from './demo/heroContacts.json'
-import { Layout } from 'antd';
+import { Layout, message } from 'antd';
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
@@ -22,13 +22,13 @@ class App extends Component {
         searchterm: "",
         filteredContactsObj:{},
         perPage: 12, 
-        tags: []
+        tags: {}
     }
   }
 
-  addTag = (tag) => {
+  addGlobalTag = (tag) => {
     this.setState({
-      tags: [...this.state.tags, tag]
+      tags: [...this.state.tags, {[tag] : tag}]
     })
   }
 
@@ -81,12 +81,12 @@ class App extends Component {
   addTagtoContact = (id, tag) => {
     if ( !("tags" in this.state.contacts[id]) ){
       this.setState({
-        contacts: {...this.state.contacts, [id]: {...this.state.contacts[id], tags: []}}
+        contacts: {...this.state.contacts, [id]: {...this.state.contacts[id], tags: {} }}
       })
     }
 
     this.setState({
-      contacts: {...this.state.contacts, [id]: {...this.state.contacts[id], tags: [...this.state.contacts[id]['tags'], tag]}}
+      contacts: {...this.state.contacts, [id]: {...this.state.contacts[id], tags: {...this.state.contacts[id].tags, [tag]: tag} } } 
     })
 
     // Update contact on filteredContacts if we have them to reflect new tags 
@@ -100,6 +100,7 @@ class App extends Component {
   createDemoContacts = () =>{
     this.setState({"contacts": DemoHeroContacts,
                     "tags": ["Hero", "Villian", "Mutant", "Adamantium", "Vibranium"]})
+    message.success('Hero demo contacts created successfully');
   }
 
   render() {
@@ -130,7 +131,7 @@ class App extends Component {
         <TagsSider tags={this.state.tags} addTagtoContact={this.addTagtoContact}/>
           <Layout style={{ marginRight: 250 }}>
             <TaggedInNav setSearchTerm={this.setSearchTerm} 
-                          addTag={this.addTag}
+                          addTag={this.addGlobalTag}
                           results={results}
                           contacts={this.state.contacts}
                           createDemoContacts={this.createDemoContacts}

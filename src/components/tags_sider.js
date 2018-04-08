@@ -1,5 +1,6 @@
 
 import React, {Component} from 'react';
+import _ from 'lodash';
 import { Layout, Menu, Icon, Input, Button, Switch } from 'antd';
 import TagButton from './tag_button';
 
@@ -8,7 +9,7 @@ const { Header, Content, Footer, Sider } = Layout;
 export default class TagsSider extends Component{
 
     renderTagButtons = () => {
-        return this.props.tags.map( (tag, index) => {
+        return _.map(this.props.tags, (tag, index) => {
           return( <Menu.Item key={index} style={{ display: "-webkit-inline-box"}}>
                         <TagButton name={ tag } addTagtoContact={this.props.addTagtoContact}/>
                         <Switch size="small" 

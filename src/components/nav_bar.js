@@ -150,7 +150,10 @@ export default class TaggedInNav extends React.Component {
             </Menu.Item>
 
             <Menu.Item key="hero-demo-button" style={{float:"right"}}>
-                <Button onClick={this.props.createDemoContacts}>
+                <Button onClick={this.props.createDemoContacts} 
+                        shape='circle'
+                        className='wolverine-demo-button'
+                >
                     <img  src={heroDemoIcon} style={{}} alt="Hero Demo"/>
                 </Button>
             </Menu.Item>
