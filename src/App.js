@@ -22,7 +22,9 @@ class App extends Component {
         searchterm: "",
         filteredContactsObj:{},
         perPage: 12, 
-        tags: {}
+        tags: {},
+        tagSearchTerm: "",
+        filteredTags: {}
     }
   }
 
@@ -33,8 +35,6 @@ class App extends Component {
   }
 
   setSearchTerm = (term) => {
-
-    console.log(this.state.term)
 
     let filteredContacts = []
 
@@ -54,8 +54,6 @@ class App extends Component {
       searchterm: term,
       filteredContactsObj: obj
     })
-
-    console.log(obj);
   }
 
   startLoading = () => {
@@ -107,8 +105,6 @@ class App extends Component {
           contacts: {...this.state.contacts, ...taggedContacts},
           filteredContactsObj: {...this.state.filteredContactsObj, ...taggedContacts}
         })
-
-    console.log(taggedContacts)
   }
 
   createDemoContacts = () =>{
@@ -116,6 +112,19 @@ class App extends Component {
                     "tags": {"Hero": "Hero", "Villian": "Villian", "Mutant": "Mutant", "Adamantium":"Adamantium", "Vibranium":"Vibranium"}
     })
     message.success('Hero demo contacts created successfully');
+  }
+
+  filterTags = (searchTagTerm) =>{
+
+    const keysIncluded = Object.keys(this.state.tags).filter((value) => {
+      return value.toLowerCase().includes(searchTagTerm.toLowerCase())
+    })
+
+    this.setState ({
+      tagSearchTerm: searchTagTerm,
+      filteredTags: _.pick(this.state.tags, keysIncluded)
+    })
+
   }
 
   render() {
@@ -143,9 +152,10 @@ class App extends Component {
               <div className="App">
 
       <Layout>
-        <TagsSider tags={this.state.tags} 
+        <TagsSider tags={this.state.tagSearchTerm === "" ? this.state.tags : this.state.filteredTags} 
                    addTagtoContact={this.addTagtoContact}
                    addTagToDisplayedContacts={this.addTagToDisplayedContacts}
+                   filterTags={this.filterTags}
                    results={results}
         />
           <Layout style={{ marginRight: 250 }}>
@@ -167,8 +177,6 @@ class App extends Component {
 
       </div>
       </DragDropContextProvider>
-
-
     );
   }
 }

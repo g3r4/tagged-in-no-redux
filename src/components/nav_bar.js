@@ -14,14 +14,13 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 function onSelect(value) {
-    console.log('onSelect', value);
 }
   
   
 function searchResult(query, contacts) {
 
     let filtro = []
-    
+    // This breaks after adding a tag, see why and fix it
     if (query.length > 2){
         _.map(contacts, (contact, contactindex) => {
             Object.values(contact).filter((value, index, contactsArray) => {
