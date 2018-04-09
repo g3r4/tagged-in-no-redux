@@ -54,7 +54,8 @@ export default class ContactsList extends Component{
         return _.map(this.state.data, (contact) => {
             return (<ContactCard key={contact["Email Address"]} 
                                 contact={contact} 
-                                name={contact["First Name"]} 
+                                name={contact["First Name"]}
+                                selectCard={this.props.selectCard}
                     />)
         })
     }

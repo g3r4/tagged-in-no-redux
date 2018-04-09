@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import md5 from 'md5';
 
-import { Card, Icon, Avatar, Tag, message } from 'antd';
+import { Card, Icon, Avatar, Tag, Checkbox, message } from 'antd';
 import PropTypes from 'prop-types'
 import { DropTarget } from 'react-dnd'
 
@@ -93,6 +93,11 @@ class ContactCard extends Component{
         
 
         const cardDescription = <div>
+                                    <div style={{ float: 'right' }}>
+                                        <Checkbox onChange={(e) => { this.props.selectCard(e, this.props.contact["Email Address"])}}
+                                                  checked={this.props.contact.checked}
+                                        />
+                                    </div>
                                     <div style={{ fontWeight: 700, marginBottom: 10 }}>
                                         {this.props.contact["Company"]}
                                     </div>
@@ -118,7 +123,7 @@ class ContactCard extends Component{
             >
                 <Card
                     hoverable
-                    style={{ width: 350, 
+                    style={{ width: 320, 
                             margin: 10, 
                             height: "min-content", 
                             border: canDrop ? '1px dashed #188fff' : ''}}
@@ -129,7 +134,6 @@ class ContactCard extends Component{
                 >
                     <Meta
                     avatar={<Avatar src={avatarImageURL} />}
-                    title={this.props.contact["First Name"] + " " + this.props.contact["Last Name"]}
                     description={cardDescription}
                     />
                 </Card>

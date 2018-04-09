@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash';
 import PropTypes from 'prop-types'
 import { DragSource } from 'react-dnd'
 import { Button, Switch, Popconfirm, message } from 'antd';
@@ -50,19 +51,36 @@ class TagButton extends Component{
       super(props)
   }
 
-  confirm = () =>{
-    message.success(`Tag ${this.props.name} added to ${this.props.results} contacts`);
-    this.props.addTagToDisplayedContacts(this.props.name);
+  confirm = (selectedContacts) =>{
+    message.success(`Tag ${this.props.name} added to ${selectedContacts.length === 0 ? this.props.results : selectedContacts.length} contacts`);
+    this.props.addTagToDisplayedContacts(this.props.name, selectedContacts);
+  }
+
+  selectedContacts = () => {
+    const checked = _.filter(this.props.contacts, (contact) =>{
+      if ("checked" in contact){
+        if (contact["checked"] === true){
+          return contact["Email Address"]
+        }
+      }
+    })
+
+    // console.log(checked)
+
+    return _.map(checked, (check) => {
+      return check["Email Address"]
+    })
   }
 
 	render() {
         const { isDragging, connectDragSource, name, bucketTag } = this.props;
+        const selectedContacts = this.selectedContacts()
 
 		return connectDragSource(
 			<div >
       <Popconfirm placement="left" 
-                  title={`Apply this tag to these ${this.props.results} contacts?`}
-                  onConfirm={this.confirm} 
+                  title={`Apply this tag to these ${selectedContacts.length === 0 ? this.props.results : selectedContacts.length} contacts ?`}
+                  onConfirm={() => {this.confirm(selectedContacts)}} 
                   okText="Yes" 
                   cancelText="No"
       >

@@ -23,6 +23,7 @@ export default class TagsSider extends Component{
                                    addTagtoContact={this.props.addTagtoContact}
                                    addTagToDisplayedContacts={this.props.addTagToDisplayedContacts}
                                    results={this.props.results}
+                                   contacts={this.props.contacts}
                         />
                         <Switch size="small" 
                             style={{ marginLeft: 10, marginRight: 10, }}

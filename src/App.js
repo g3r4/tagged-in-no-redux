@@ -90,21 +90,28 @@ class App extends Component {
     }
   }
 
-  addTagToDisplayedContacts = (tag) => {
+  addTagToDisplayedContacts = (tag, selectedContacts) => {
 
-    const contactsToMapOver = _.isEmpty(this.state.filteredContactsObj) ? this.state.contacts : this.state.filteredContactsObj
-    
+
+    let contactsToMapOver = selectedContacts.length === 0 ?  _.isEmpty(this.state.filteredContactsObj) ? this.state.contacts : this.state.filteredContactsObj : _.pick(this.state.contacts,selectedContacts)
+     
     // _.reduce is _.map equivalence to return an object instead of an array _.filter and _.reject are _.pick and _.omit collections equivalences too
     const taggedContacts = _.reduce( contactsToMapOver,
          (result, value, key) => {
           contactsToMapOver[key] = {...contactsToMapOver[key], tags: {...contactsToMapOver[key].tags, [tag]:tag} };
           return contactsToMapOver;
         }, {});
-    
+        //console.log(taggedContacts)
         this.setState({
           contacts: {...this.state.contacts, ...taggedContacts},
-          filteredContactsObj: {...this.state.filteredContactsObj, ...taggedContacts}
         })
+
+        // Update filtered contacts if we have them
+        if(!_.isEmpty(this.state.filteredContactsObj)){
+          this.setState({
+            filteredContactsObj: {...this.state.filteredContactsObj, ...taggedContacts}
+          })
+        }
   }
 
   createDemoContacts = () =>{
@@ -127,6 +134,13 @@ class App extends Component {
 
   }
 
+  selectCard = (e, id) => {
+    this.setState({
+      contacts: {...this.state.contacts, [id] : {...this.state.contacts[id], checked: e.target.checked }}
+    })
+    //console.log(e.target.checked, id);
+  }
+
   render() {
     
     const uploadFile = _.isEmpty(this.state.contacts) ? 
@@ -144,7 +158,9 @@ class App extends Component {
                   loading={this.state.loading} 
                   setPerPage={this.setPerPage} 
                   perPage={this.state.perPage}
-                  results={results}/>
+                  results={results}
+                  selectCard={this.selectCard}
+    />
 
     return (
             <DragDropContextProvider backend={HTML5Backend}>
@@ -157,6 +173,7 @@ class App extends Component {
                    addTagToDisplayedContacts={this.addTagToDisplayedContacts}
                    filterTags={this.filterTags}
                    results={results}
+                   contacts={this.state.contacts}
         />
           <Layout style={{ marginRight: 250 }}>
             <TaggedInNav setSearchTerm={this.setSearchTerm} 
