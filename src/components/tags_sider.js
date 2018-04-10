@@ -49,15 +49,6 @@ export default class TagsSider extends Component{
 
             <Menu.Divider />
 
-            <Menu.Item key="remove-tags">
-                <Button type="danger" 
-                        icon="close-circle-o"
-                        style={{ width: '-webkit-fill-available' }}
-                        disabled={Object.keys(this.props.tags).length === 0 && this.state.tagSearchInput? true: false}
-                >
-                    Delete tags list
-                </Button>
-            </Menu.Item>
             <Menu.Item key="clear-tag-filters">
                 <Button type="dashed"
                         style={{ width: '-webkit-fill-available' }}

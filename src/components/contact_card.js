@@ -93,11 +93,6 @@ class ContactCard extends Component{
         
 
         const cardDescription = <div>
-                                    <div style={{ float: 'right' }}>
-                                        <Checkbox onChange={(e) => { this.props.selectCard(e, this.props.contact["Email Address"])}}
-                                                  checked={this.props.contact.checked}
-                                        />
-                                    </div>
                                     <div style={{ fontWeight: 700, marginBottom: 10 }}>
                                         {this.props.contact["Company"]}
                                     </div>
@@ -118,6 +113,14 @@ class ContactCard extends Component{
                                 `http://www.gravatar.com/avatar/${md5(this.props.contact["Email Address"])}?s=100&d=identicon`
 
         const mailto = `mailto:${this.props.contact["Email Address"]}`
+
+        const titleWithCheckbox = <div>
+                                    {this.props.contact["Name"]}
+                                    <Checkbox onChange={(e) => { this.props.selectCard(e, this.props.contact["Email Address"])}}
+                                                  checked={this.props.contact.checked}
+                                                  style={{ float: 'right' }}
+                                        />
+                                  </div>
         return connectDropTarget(
             <div //style={{ opacity: canDrop ? 0.2 : 1 }}
             >
@@ -134,7 +137,7 @@ class ContactCard extends Component{
                 >
                     <Meta
                     avatar={<Avatar src={avatarImageURL} />}
-                    title={`${this.props.contact["Name"]}`}
+                    title={titleWithCheckbox}
                     description={cardDescription}
                     />
                 </Card>
