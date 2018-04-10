@@ -20,16 +20,18 @@ function onSelect(value) {
 function searchResult(query, contacts) {
 
     let filtro = []
-    // This breaks after adding a tag, see why and fix it
     if (query.length > 2){
         _.map(contacts, (contact, contactindex) => {
             Object.values(contact).filter((value, index, contactsArray) => {
-                if (value.includes(query)){
-                    filtro.push({ query: value,
-                            name: contacts[contactindex][["First Name"]] + " " + contacts[contactindex][["Last Name"]],
-                            category: contactindex+index,
-                            count: 1
-                    })
+                console.log(value)
+                if (typeof value === "string"){
+                    if ( value.includes(query)){
+                        filtro.push({ query: value,
+                                name: contacts[contactindex][["First Name"]] + " " + contacts[contactindex][["Last Name"]],
+                                category: contactindex+index,
+                                count: 1
+                        })
+                    }
                 }
             })
         })
@@ -43,7 +45,7 @@ function searchResult(query, contacts) {
 function renderOption(item) {
     return (
       <Option key={item.category} text={item.query}>
-        {item.query} <Icon type="arrow-left" /> {item.name}
+        {item.query}
       </Option>
     );
 }
@@ -66,14 +68,7 @@ export default class TaggedInNav extends React.Component {
     });
   }
 
-  handleSearchBarChange = (event) => {
-      this.props.setSearchTerm(event.target.value)
-  }
-
   handleSearch = (value) => {
-    this.setState({
-      dataSource: value ? searchResult(value, this.props.contacts) : [],
-    });
     this.props.setSearchTerm(value)
   }
 
@@ -116,8 +111,6 @@ export default class TaggedInNav extends React.Component {
                     <AutoComplete
                     className="global-search"
                     style={{ width: 200 }}
-                    dataSource={dataSource.map(renderOption)}
-                    onSelect={onSelect}
                     onSearch={this.handleSearch}
                     placeholder="Search contacts"
                     optionLabelProp="text"

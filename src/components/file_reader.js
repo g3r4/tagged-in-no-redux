@@ -26,6 +26,9 @@ export default class UploadFile extends Component{
             //this.props.startLoading();
             converter().fromString(event.target.result)
                 .on('json',(jsonObj)=> { 
+                    jsonObj["Name"] = `${jsonObj["First Name"]} ${jsonObj["Last Name"]}`
+                    delete jsonObj["First Name"]
+                    delete jsonObj["Last Name"]
                     contacts[jsonObj["Email Address"]] = jsonObj;
                 })
                 .on('done',()=> {

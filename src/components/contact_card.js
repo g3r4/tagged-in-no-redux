@@ -123,8 +123,8 @@ class ContactCard extends Component{
             >
                 <Card
                     hoverable
-                    style={{ width: 320, 
-                            margin: 10, 
+                    style={{ width: 315, 
+                            margin: 5, 
                             height: "min-content", 
                             border: canDrop ? '1px dashed #188fff' : ''}}
                     actions={[
@@ -134,6 +134,7 @@ class ContactCard extends Component{
                 >
                     <Meta
                     avatar={<Avatar src={avatarImageURL} />}
+                    title={`${this.props.contact["Name"]}`}
                     description={cardDescription}
                     />
                 </Card>

@@ -1,140 +1,120 @@
 {
     "wolverine@marvel.demo": {
-                                "First Name": "Logan",
-                                "Last Name": "",
+                                "Name": "Logan",
                                 "Company": "X-Men",
                                 "Email Address": "wolverine@marvel.demo",
                                 "Position": "Wolverine"
                             },
     "cyclops@marvel.demo": {
-                                "First Name": "Scott",
-                                "Last Name": "Summers",
+                                "Name": "Scott Summers",
                                 "Company": "X-Men",
                                 "Email Address": "cyclops@marvel.demo",
                                 "Position": "Cyclops"
                             },
     "storm@marvel.demo": {
-                                "First Name": "Ororo",
-                                "Last Name": "Munroe",
+                                "Name": "Ororo Munroe",
                                 "Company": "X-Men",
                                 "Email Address": "storm@marvel.demo",
                                 "Position": "Storm"
                             },
     "jean.grey@marvel.demo": {
-                                "First Name": "Jean",
-                                "Last Name": "Grey",
+                                "Name": "Jean Grey",
                                 "Company": "X-Men",
                                 "Email Address": "jean.grey@marvel.demo",
                                 "Position": "Jean Grey"
                             },
     "blackpanther@marvel.demo": {
-                                "First Name": "T'",
-                                "Last Name": "Challa",
+                                "Name": "T'Challa",
                                 "Company": "Wakandans",
                                 "Email Address": "blackpanther@marvel.demo",
                                 "Position": "Black Panther"
                             },
     "captain@marvel.demo": {
-                                "First Name": "Steve",
-                                "Last Name": "Rogers",
+                                "Name": "Steve Rogers",
                                 "Company": "Avengers",
                                 "Email Address": "captain@marvel.demo",
                                 "Position": "Captain America"
                             },
     "ironman@marvel.demo": {
-                                "First Name": "Tony",
-                                "Last Name": "Stark",
+                                "Name": "Tony Stark",
                                 "Company": "Avengers",
                                 "Email Address": "ironman@marvel.demo",
                                 "Position": "Iron Man"
                             },
     "spiderman@marvel.demo": {
-                                "First Name": "Peter",
-                                "Last Name": "Parker",
+                                "Name": "Peter Parker",
                                 "Company": "Avengers",
                                 "Email Address": "spiderman@marvel.demo",
                                 "Position": "Spider Man"
                             },
     "psylocke@marvel.demo": {
-                                "First Name": "Elizabeth",
-                                "Last Name": "Braddock",
+                                "Name": "Elizabeth Braddock",
                                 "Company": "X-Men",
                                 "Email Address": "psylocke@marvel.demo",
                                 "Position": "Psylocke"
                             },
     "venom@marvel.demo": {
-                                "First Name": "Eddie",
-                                "Last Name": "Brock",
+                                "Name": "Eddie Brock",
                                 "Company": "No affiliation",
                                 "Email Address": "venom@marvel.demo",
                                 "Position": "Venom"
                             },
     "daredevil@marvel.demo": {
-                                "First Name": "Matt",
-                                "Last Name": "Murdock",
+                                "Name": "Matt Murdock",
                                 "Company": "Defenders",
                                 "Email Address": "daredevil@marvel.demo",
                                 "Position": "Daredevil"
                             },
     "jessica.jones@marvel.demo": {
-                                "First Name": "Jessica",
-                                "Last Name": "Jones",
+                                "Name": "Jessica Jones",
                                 "Company": "Defenders",
                                 "Email Address": "jessica.jones@marvel.demo",
                                 "Position": "Jessica Jones"
                             },
     "deadpool@marvel.demo": {
-                                "First Name": "Wade",
-                                "Last Name": "Wilson",
+                                "Name": "Wade Wilson",
                                 "Company": "X-Force",
                                 "Email Address": "deadpool@marvel.demo",
                                 "Position": "Deadpool"
                             },
     "carnage@marvel.demo": {
-                                "First Name": "Cletus",
-                                "Last Name": "Kasady",
+                                "Name": "Cletus Kasady",
                                 "Company": "No affiliation",
                                 "Email Address": "carnage@marvel.demo",
                                 "Position": "Carnage"
                             },
     "magneto@marvel.demo": {
-                                "First Name": "Erik",
-                                "Last Name": "Magnus",
+                                "Name": "Erik Magnus",
                                 "Company": "X-Men",
                                 "Email Address": "magneto@marvel.demo",
                                 "Position": "Magneto"
                             },
     "beast@marvel.demo": {
-                                "First Name": "Henry",
-                                "Last Name": "McCoy",
+                                "Name": "Henry McCoy",
                                 "Company": "X-Men",
                                 "Email Address": "beast@marvel.demo",
                                 "Position": "Beast"
                             },
     "starlord@marvel.demo": {
-                                "First Name": "Peter",
-                                "Last Name": "Quill",
+                                "Name": "Peter Quill",
                                 "Company": "Guardians of the galaxy",
                                 "Email Address": "starlord@marvel.demo",
                                 "Position": "Star Lord"
                             },
     "thor@marvel.demo": {
-                                "First Name": "Thor",
-                                "Last Name": "Odinson",
+                                "Name": "Thor Odinson",
                                 "Company": "Avengers",
                                 "Email Address": "thor@marvel.demo",
                                 "Position": "Thor"
                             },
     "hulk@marvel.demo": {
-                                "First Name": "Bruce",
-                                "Last Name": "Banner",
+                                "Name": "Bruce Banner",
                                 "Company": "Avengers",
                                 "Email Address": "hulk@marvel.demo",
                                 "Position": "Hulk"
                             },
     "cable@marvel.demo": {
-                                "First Name": "Nathan",
-                                "Last Name": "Summers",
+                                "Name": "Nathan Summers",
                                 "Company": "X-Force",
                                 "Email Address": "cable@marvel.demo",
                                 "Position": "Cable"

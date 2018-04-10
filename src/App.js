@@ -36,19 +36,17 @@ class App extends Component {
 
   setSearchTerm = (term) => {
 
-    let filteredContacts = []
-
-    if (term !== ""){
-      filteredContacts = _.filter(this.state.contacts, (contact) => {
-           if (_.includes(contact, term) ) return contact;
-      })
+    let results = []
+    // Changed this to for loops for perfomance gains in place of .maps and .filters
+    for(let hash in this.state.contacts) {
+      for(let key in this.state.contacts[hash]) {
+        if( (typeof this.state.contacts[hash][key] === "string") && (this.state.contacts[hash][key].toLowerCase().indexOf(term.toLowerCase())!=-1)) {
+          results[hash] = this.state.contacts[hash];
+        }
+      }
     }
-
-    const obj = filteredContacts.reduce(function(result, item, index, array) {
-      result[item["Email Address"]] = item; 
-      return result;
-    }, {}) //watch out the empty {}, which is passed as "result"
-
+        
+    const obj = _.pick(this.state.contacts, Object.keys(results))
 
     this.setState({
       searchterm: term,
@@ -101,7 +99,6 @@ class App extends Component {
           contactsToMapOver[key] = {...contactsToMapOver[key], tags: {...contactsToMapOver[key].tags, [tag]:tag} };
           return contactsToMapOver;
         }, {});
-        //console.log(taggedContacts)
         this.setState({
           contacts: {...this.state.contacts, ...taggedContacts},
         })
@@ -138,7 +135,14 @@ class App extends Component {
     this.setState({
       contacts: {...this.state.contacts, [id] : {...this.state.contacts[id], checked: e.target.checked }}
     })
-    //console.log(e.target.checked, id);
+    // Update filtered contacts if we have them
+    if(!_.isEmpty(this.state.filteredContactsObj)){
+      this.setState({
+        filteredContactsObj: {...this.state.filteredContactsObj, [id] : {...this.state.filteredContactsObj[id], checked: e.target.checked } }
+      })
+    }
+
+
   }
 
   render() {
@@ -175,7 +179,7 @@ class App extends Component {
                    results={results}
                    contacts={this.state.contacts}
         />
-          <Layout style={{ marginRight: 250 }}>
+          <Layout style={{ marginRight: 220 }}>
             <TaggedInNav setSearchTerm={this.setSearchTerm} 
                           addTag={this.addGlobalTag}
                           results={results}
