@@ -24,7 +24,8 @@ class App extends Component {
         perPage: 12, 
         tags: {},
         tagSearchTerm: "",
-        filteredTags: {}
+        filteredTags: {},
+        selectedContacts: 0,
     }
   }
 
@@ -34,10 +35,10 @@ class App extends Component {
     })
   }
 
-  setSearchTerm = (term) => {
+  filterContacts = (term) => {
 
     let results = []
-    // Changed this to for loops for perfomance gains in place of .maps and .filters
+    // Changed this to for loops for perfomance gains instead of .maps and .filters
     for(let hash in this.state.contacts) {
       for(let key in this.state.contacts[hash]) {
         if( (typeof this.state.contacts[hash][key] === "string") && (this.state.contacts[hash][key].toLowerCase().indexOf(term.toLowerCase())!=-1)) {
@@ -132,18 +133,51 @@ class App extends Component {
   }
 
   selectCard = (e, id) => {
+
     this.setState({
       contacts: {...this.state.contacts, [id] : {...this.state.contacts[id], checked: e.target.checked }}
     })
+
     // Update filtered contacts if we have them
     if(!_.isEmpty(this.state.filteredContactsObj)){
       this.setState({
         filteredContactsObj: {...this.state.filteredContactsObj, [id] : {...this.state.filteredContactsObj[id], checked: e.target.checked } }
       })
     }
+  }
+
+  getSelectedContacts = () => {
+    return _.filter(this.state.contacts, (contact) => { return contact.checked })
+  }
+
+  clearSelectedContacts = () => {
+    const selectedContacts = this.getSelectedContacts()
+    let uncheckedContacts = {}
+
+    message.success(`Unchecked ${this.getSelectedContacts().length} contacts`);
+
+
+    const selectedObj = _.reduce( selectedContacts,
+      (result, value, key) => {
+       uncheckedContacts[value["Email Address"]] = {...selectedContacts[key], checked: false};
+       return uncheckedContacts;
+     }, {});
+
+    this.setState({
+      contacts: {...this.state.contacts, ...selectedObj}
+    })
+
+    // Update filtered contacts if we have them
+    if(!_.isEmpty(this.state.filteredContactsObj)){
+      this.setState({
+        filteredContactsObj: {...this.state.filteredContactsObj, ...selectedObj }
+      })
+    }
 
 
   }
+
+
 
   render() {
     
@@ -180,11 +214,13 @@ class App extends Component {
                    contacts={this.state.contacts}
         />
           <Layout style={{ marginRight: 220 }}>
-            <TaggedInNav setSearchTerm={this.setSearchTerm} 
+            <TaggedInNav filterContacts={this.filterContacts} 
                           addTag={this.addGlobalTag}
                           results={results}
                           contacts={this.state.contacts}
                           createDemoContacts={this.createDemoContacts}
+                          selectedContacts={this.getSelectedContacts().length}
+                          clearSelectedContacts = {this.clearSelectedContacts}
             />
             <Content style={{ padding: '0 50px', marginTop: 70, minHeight: 800 }}>
               {uploadFile}

@@ -69,7 +69,7 @@ export default class TaggedInNav extends React.Component {
   }
 
   handleSearch = (value) => {
-    this.props.setSearchTerm(value)
+    this.props.filterContacts(value)
   }
 
   emitEmpty = () => {
@@ -124,9 +124,10 @@ export default class TaggedInNav extends React.Component {
                 </div>
             </Menu.Item>
 
-            <Menu.Item key="results">
-                <Icon type="user" />            
-                <Badge count={this.props.results} showZero overflowCount={9999} style={{ backgroundColor: '#1890ff' }}/>
+            <Menu.Item key="results">           
+                <Badge count={this.props.results} showZero overflowCount={9999} style={{ backgroundColor: '#1890ff' }}>
+                    <Icon type="user" style={{ fontSize: 20 }}/> 
+                </Badge>
             </Menu.Item>
 
             <Menu.Item key="create-tag">
@@ -141,6 +142,14 @@ export default class TaggedInNav extends React.Component {
                 />
             </Menu.Item>
 
+            <Menu.Item key="selected-contacts">
+                <div onClick={this.props.clearSelectedContacts}>
+                    <Badge count={this.props.selectedContacts} showZero overflowCount={9999}>
+                        <Icon type="user-add" style={{ fontSize: 22 }}/> 
+                    </Badge>
+                </div>
+            </Menu.Item>
+
             <Menu.Item key="hero-demo-button" style={{float:"right"}}>
                 <Button onClick={this.props.createDemoContacts} 
                         shape='circle'
@@ -149,6 +158,8 @@ export default class TaggedInNav extends React.Component {
                     <img  src={heroDemoIcon} style={{}} alt="Hero Demo"/>
                 </Button>
             </Menu.Item>
+
+
 
       </Menu>
       </Header>
