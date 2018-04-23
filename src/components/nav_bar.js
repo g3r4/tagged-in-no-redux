@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import heroDemoIcon from'../demo/wolverine.png';
 import { Menu, Icon, Input, Badge, Layout,
-         AutoComplete, Button } from 'antd';
+         AutoComplete, Button, message, Popconfirm } from 'antd';
 
 const Option = AutoComplete.Option;
 
@@ -69,7 +69,7 @@ export default class TaggedInNav extends React.Component {
   }
 
   handleSearch = (value) => {
-    this.props.filterContacts(value)
+    this.props.filterContacts(value, null)
   }
 
   emitEmpty = () => {
@@ -143,11 +143,18 @@ export default class TaggedInNav extends React.Component {
             </Menu.Item>
 
             <Menu.Item key="selected-contacts">
-                <div onClick={this.props.clearSelectedContacts}>
-                    <Badge count={this.props.selectedContacts} showZero overflowCount={9999}>
-                        <Icon type="user-add" style={{ fontSize: 22 }}/> 
-                    </Badge>
-                </div>
+                <Popconfirm placement="right" 
+                    title={`Unselect ${this.props.selectedContacts} contacts ?`}
+                    onConfirm={this.props.clearSelectedContacts} 
+                    okText="Yes" 
+                    cancelText="No"
+        >
+                    <Button>
+                        <Badge count={this.props.selectedContacts} showZero overflowCount={9999}>
+                            <Icon type="user-add" style={{ fontSize: 22 }}/> 
+                        </Badge>
+                    </Button>
+                </Popconfirm>
             </Menu.Item>
 
             <Menu.Item key="hero-demo-button" style={{float:"right"}}>
